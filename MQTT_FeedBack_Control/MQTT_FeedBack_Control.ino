@@ -22,24 +22,26 @@ const int  Motor1  = D6;
 const int  Motor2  = D7;
 const int LED = D8;
 
-String M1_topic_in = String("test/command/Motor1");
-String M2_topic_in = String("test/command/Motor2");
-String LED_topic_in = String("test/command/LED");
-String Time_topic_out = String("test/sensor/Time");
-String Ping_topic = String("test/ping");
+String M1_topic_in = String("/test/command/Motor1");
+String M2_topic_in = String("/test/command/Motor2");
+String LED_topic_in = String("/test/command/LED");
+String Time_topic_out = String("/test/sensor/Time");
+String Ping_topic = String("/test/ping");
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
 // Update these with values suitable for your network.
 
-//const char* ssid = "5F_2.4G1";
-//const char* password = "12345678";
-//const char* mqtt_server = "192.168.1.106";
+const char* ssid = "5F_2.4G1";
+const char* password = "12345678";
+const char* mqtt_server = "192.168.1.106";
+/*
 const char* ssid = "danki";
 const char* password = "ki1314ki";
 const char* mqtt_server = "192.168.1.105";
-const int mqtt_port = 8080;
+*/
+const int mqtt_port = 9000;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -187,7 +189,7 @@ void loop() {
     // P
     int current_error = target_value - current_value;
     // I
-    integration *= 0.95;
+    integration *= 0.99;
     integration += current_error;
     // D
     int derivative = current_error - prev_error;
@@ -205,17 +207,20 @@ void loop() {
     prev_error = current_error;
     
     // plot PID and current_value
+    
     Serial.print(target_value);
     Serial.print('\t');
     Serial.print(current_error);
     Serial.print('\t');
-    Serial.print(integration/500);
+    Serial.print(integration/10);
     Serial.print('\t');
     Serial.print(derivative);
     Serial.print('\t');
     Serial.print(motor_control);
     Serial.print('\t');
     Serial.println(current_value);
+
+    
   /*
     ++value;
     snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);

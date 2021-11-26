@@ -8,9 +8,17 @@ import mqtt
 import numpy as np
 
 # Initialize mqtt client ----------------------------------------------------------
-
+"""
 broker = '192.168.0.100'
 port = 8080
+
+"""
+
+broker = '127.0.0.1'
+port = 9000
+
+#"""
+
 
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 # username = 'nemo'

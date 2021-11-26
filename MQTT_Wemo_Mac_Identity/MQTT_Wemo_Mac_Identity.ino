@@ -31,7 +31,9 @@ String Ping_topic = String("/test/ping");
 // Pin for Motors
 const int  Motor1  = D6;
 const int  Motor2  = D7;
-const int LED = D5;
+const int Valve1 = D5;
+const int Valve2 = D0;
+//const int LED = D5;
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
@@ -47,7 +49,7 @@ char msg[MSG_BUFFER_SIZE];
 // WIFI for SMART_BAG AP
 const char* ssid = "SMART-BAG";
 const char* password = "12345678";
-const char* mqtt_server = "192.168.1.106";
+const char* mqtt_server = "192.168.0.102";
 const int mqtt_port = 9000;
 
 /* WIFI at classroom
@@ -95,9 +97,25 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
   if (tp == String(deviceId)){
+      // 幫浦PWM控制
       analogWrite(Motor1, pl.toInt());
+      analogWrite(Motor2, 0);
+      //analogWrite(Valve1, pl.toInt());
+      //Serial.printf("PWM %d",pl.toInt());
+      //digitalWrite(Valve2, LOW);
+      if(pl.toInt() == 0){
+        // 讓氣嘴接往洩氣口
+        analogWrite(Valve1, 255);
+        digitalWrite(Valve2, LOW);
+        } 
+      else{
+        // 讓氣嘴接往馬達幫浦
+        analogWrite(Valve1, LOW);
+        digitalWrite(Valve2, LOW);
+        }
+      
+    } 
       //Serial.println(pl.toInt());
-    }
   else if (tp == Ping_topic){
       //Serial.println('ping');
       if (pl == String("who_are_you")){
@@ -129,11 +147,12 @@ void reconnect() {
 
 void setup() {
   pinMode(BUILTIN_LED, OUTPUT); 
-  pinMode(LED, OUTPUT);
   pinMode(Motor1, OUTPUT);
   pinMode(Motor2, OUTPUT);
-  pinMode(A0, INPUT);
+  pinMode(Valve1, OUTPUT);
+  pinMode(Valve2, OUTPUT);
   Serial.begin(9600);
+  analogWriteFreq(100);
   
   // Create client ID based on device MacAdress
   uint8_t mac[WL_MAC_ADDR_LENGTH];

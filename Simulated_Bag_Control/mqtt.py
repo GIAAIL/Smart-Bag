@@ -1,7 +1,7 @@
 # created by Nemo at 2021/8/27 for smart drone project
 # modified from https://www.emqx.com/en/blog/how-to-use-mqtt-in-python
 
-import  paho.mqtt.client as mqtt
+import paho.mqtt.client as mqtt
 from collections import defaultdict
 
 def connect_mqtt(client_id, broker, port):
@@ -49,6 +49,10 @@ class client:
         #print(f'from topic {msg.topic}, message={msg.payload.decode()}, user={userdata}')
     def __getitem__(self, index):
         return self.cache[index]
+    def disconnect(self):
+        self.client.disconnect()
+    def __del__(self):
+        self.disconnect()
 
 
 # this mqtt client remember past messages in a list
@@ -85,6 +89,11 @@ class client_with_memory:
         #print(f'from topic {msg.topic}, message={msg.payload.decode()}, user={userdata}')
     def __getitem__(self, index):
         return self.cache[index]
+    def disconnect(self):
+        self.client.disconnect()
+    def __del__(self):
+        self.disconnect()
+
 
 
 # def on_message(client, userdata, msg):

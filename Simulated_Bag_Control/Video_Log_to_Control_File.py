@@ -5,24 +5,8 @@ import vlc
 import time
 import math
 import random
-import mqtt
 
-# Initialize mqtt client ----------------------------------------------------------
 
-broker = '127.0.0.1'
-port = 8080
-
-client_id = f'python-mqtt-{random.randint(0, 1000)}'
-# username = 'nemo'
-# password = 'public'
-
-cl = mqtt.client(broker, port, client_id)
-
-while(not cl.connected):
-    time.sleep(1)
-    print(f'connecting to mqtt broker at {broker}:{port}')
-
-cl.subscribe("test/sensor/Time")
 
 # Read log files-----------------------------------------------------------------------------------
 
