@@ -1,0 +1,24 @@
+
+.connected-device .list-group{
+    overflow: hidden;
+    overflow-y:scroll;
+    height:100%;
+}
+
+.device-status .list-group{
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+.device-status  div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.connected-device .device-item{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
