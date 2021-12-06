@@ -1,5 +1,7 @@
-let F = [[],[],[],[],[]]
-let B = [[],[],[],[],[]]
+update_status(connected_devices, focus_state)
+
+
+// set Role Images Callbacks
 let F_img = document.querySelectorAll('.front_board .img_container')
 let B_img = document.querySelectorAll('.back_board .img_container')
 F_img.forEach(function(e,i){
@@ -7,7 +9,8 @@ F_img.forEach(function(e,i){
         e.current_device = undefined
         console.log(e.id)
         e.name = e.id
-        F[e.name[1]][e.name[2]] = e
+        // store element in Role dict
+        Roles[e.name]= e
         e.onmouseover = function(){
           //this.children[0].src = this.hover
           e.querySelectorAll('path, polyline').forEach(function(e,i){
@@ -37,7 +40,8 @@ B_img.forEach(function(e,i){
         e.current_device = undefined
         console.log(e.id)
         e.name = e.id
-        B[e.name[1]][e.name[2]] = e
+        // store element in Role dict
+        Roles[e.name] = e 
         e.onmouseover = function(){
           //this.children[0].src = this.hover
           e.querySelectorAll('path, polyline').forEach(function(e,i){

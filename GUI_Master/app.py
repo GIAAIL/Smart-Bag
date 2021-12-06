@@ -8,6 +8,32 @@ def hello():
 
 @app.route('/scan_devices')
 def scan_devices():
-    device_names = ['Wemo-11aa','Wemo-22bb','Wemo-33cc','Wemo-44dd']
+    device_names = {
+        "Wemo-11aa":{
+            "role": "B11",
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-22aa":{
+            "role": "B11",
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-33aa":{
+            "role": "B11",
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-44aa":{
+            "role": "B11",
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-55aa":{
+            "role": "B11",
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        }
+    }
     print(jsonify(devices=device_names))
     return jsonify(devices=device_names)
