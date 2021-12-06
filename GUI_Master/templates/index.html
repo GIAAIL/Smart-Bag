@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="static/css/Grid.css">
     <link rel="stylesheet" href="static/css/Connect.css">
     <script src="static/js/svg-inject.min.js"></script>
+    <script src="static/js/loading.js"></script>
+    <script src="static/js/index.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -14,75 +16,75 @@
       <h2 class="bag-roles-title ">Bag Roles </h2>
       <div class="board list-group-item">
         <div class="back_board ">
-          <div class = img_container>
+          <div class = img_container id=B11>
             <img src="static/img/B11.svg" alt="B11" onload="SVGInject(this)" >
            
           </div>
-          <div class = img_container>
+          <div class = img_container id="B12">
             
           </div>
-          <div class = img_container>
+          <div class = img_container id="B13">
             <img src="static/img/B13.svg" alt="B13" onload="SVGInject(this)" >
           </div>
   
-          <div class = img_container>
+          <div class = img_container id="B21">
             <img src="static/img/B21.svg" alt="B21" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B22">
             <img src="static/img/B22.svg" alt="B22" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B23">
             <img src="static/img/B23.svg" alt="B23" onload="SVGInject(this)" >
           </div>
   
-          <div class = img_container>
+          <div class = img_container id="B31">
             <img src="static/img/B31.svg" alt="B31" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B32">
             <img src="static/img/B32.svg" alt="B32" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B33">
             <img src="static/img/B33.svg" alt="B33" onload="SVGInject(this)" >
           </div>
   
-          <div class = img_container>
+          <div class = img_container id="B41">
             <img src="static/img/B41.svg" alt="B41" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B42">
             <img src="static/img/B42.svg" alt="B42" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
+          <div class = img_container id="B43">
             <img src="static/img/B43.svg" alt="B43" onload="SVGInject(this)" >
           </div>
         </div>
       
         <div class="front_board ">
-          <div class = img_container>
-            <img src="static/img/F11.svg" alt="B11" onload="SVGInject(this)" >
+          <div class = img_container id="F11">
+            <img src="static/img/F11.svg" alt="F11" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
-            <img src="static/img/F12.svg" alt="B12" onload="SVGInject(this)" >
-          </div>
-  
-          <div class = img_container>
-            <img src="static/img/F21.svg" alt="B21" onload="SVGInject(this)" >
-          </div>
-          <div class = img_container>
-            <img src="static/img/F22.svg" alt="B22" onload="SVGInject(this)" >
+          <div class = img_container id="F12">
+            <img src="static/img/F12.svg" alt="F12" onload="SVGInject(this)" >
           </div>
   
-          <div class = img_container>
-            <img src="static/img/F31.svg" alt="B31" onload="SVGInject(this)" >
+          <div class = img_container id="F21">
+            <img src="static/img/F21.svg" alt="F21" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
-            <img src="static/img/F32.svg" alt="B32" onload="SVGInject(this)" >
+          <div class = img_container id="F22">
+            <img src="static/img/F22.svg" alt="F22" onload="SVGInject(this)" >
           </div>
   
-          <div class = img_container>
-            <img src="static/img/F41.svg" alt="B41" onload="SVGInject(this)" >
+          <div class = img_container id="F31">
+            <img src="static/img/F31.svg" alt="F31" onload="SVGInject(this)" >
           </div>
-          <div class = img_container>
-            <img src="static/img/F42.svg" alt="B42" onload="SVGInject(this)" >
+          <div class = img_container id="F32">
+            <img src="static/img/F32.svg" alt="F32" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="F41">
+            <img src="static/img/F41.svg" alt="F41" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="F42">
+            <img src="static/img/F42.svg" alt="F42" onload="SVGInject(this)" >
           </div>
         </div>
   
@@ -132,148 +134,28 @@
       <div class="connected-device">
         <div class="title-and-button">
           <h2 >Connected Devices</h2>
-          <button class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+          <button class="btn btn-primary" onclick="refresh_devices()"> Refresh</button>
         </div>
-       
-        <nav>
-          <ul class='list-group'>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-              <li class="list-group-item list-group-item-action ">
-                <div class=device-item>
-                  <h5>Wemo-abcd1234</h5>
-                  <button type="button" class="btn btn-primary">Test</button>
-                  <button type="button" class="btn btn-primary">Remove</button>
-                </div>
-              </li>
-          </ul>
-      </nav>
+
+        <div class='list-group' id='device_list'>
+            
+        </div>
       </div>
 
     </div>
   </div>
 
-  <script defer>
-    let F = [[],[],[],[],[]]
-    let B = [[],[],[],[],[]]
-    let F_img = document.querySelectorAll('.front_board .img_container')
-    let B_img = document.querySelectorAll('.back_board .img_container')
-    F_img.forEach(function(e,i){
-      if (e.children.length>0){
-        e.current_device = undefined
-        e.name = e.children[0].src.split('/').pop().split('.')[0]
-        F[e.name[1]][e.name[2]] = e
-        e.onmouseover = function(){
-          //this.children[0].src = this.hover
-          e.querySelectorAll('path, polyline').forEach(function(e,i){
-            e.style.stroke = '#ff0000'
-            e.style.strokeWidth = '2px'
-          })
-        }
-        e.onmouseout = function(){
-          e.querySelectorAll('path, polyline').forEach(function(e,i){
-            if(e.current_device){
-              e.style.stroke = '#00ff00'
-              e.style.strokeWidth = '2px'
-            }
-            else{
-              e.style.stroke = '#000000'
-              e.style.strokeWidth = '1px'
-            }
-          })
-        }
-        e.children[0].setAttribute("object-fit", "contrain")
-        e.children[0].setAttribute("width", "100%")
-        e.children[0].setAttribute("height", "80%")
-      } 
-    })
-    B_img.forEach(function(e,i){
-      if (e.children.length>0){
-        e.current_device = undefined
-        e.name = e.children[0].src.split('/').pop().split('.')[0]
-        B[e.name[1]][e.name[2]] = e
-        e.onmouseover = function(){
-          //this.children[0].src = this.hover
-          e.querySelectorAll('path, polyline').forEach(function(e,i){
-            e.style.stroke = '#ff0000'
-            e.style.strokeWidth = '2px'
-          })
-        }
-        e.onmouseout = function(){
-          e.querySelectorAll('path, polyline').forEach(function(e,i){
-            if(e.current_device){
-              e.style.stroke = '#00ff00'
-              e.style.strokeWidth = '2px'
-            }
-            else{
-              e.style.stroke = '#000000'
-              e.style.strokeWidth = '1px'
-            }
-          })
-        }
-        e.children[0].setAttribute("object-fit", "fill")
-        e.children[0].setAttribute("width", "100%")
-        e.children[0].setAttribute("height", "90%")
+<!--Template for Connected li Element !-->
+  <template id="device_element_template">
+    <a class="list-group-item list-group-item-action ">
+      <div class=device-item>
+        <h5>Wemo-abcd1234</h5>
+        <button type="button" class="btn btn-primary">Test</button>
+        <button type="button" class="btn btn-primary">Remove</button>
+      </div>
+    </a>
+  </template>
 
-      }
-    }) 
-
-
-    
-  </script>
+  <script src="static/js/defer.js" defer></script>
 </body>
 </html>
