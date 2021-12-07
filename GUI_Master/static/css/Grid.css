@@ -1,5 +1,9 @@
+
+
 body{
+    background: url(/static/img/background.jpg);
     background-color: #3c4247;
+    background-size: cover;
 }
 
 
@@ -19,7 +23,6 @@ body{
 }
 .board{
     display: grid;
-    background-color: #3c4247;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 9fr 1fr;
     grid-column-gap: 5vh;
@@ -35,15 +38,15 @@ body{
 .back_board{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 10vh repeat(3 , minmax(13vh,19vh)); 
+    grid-template-rows: 13vh repeat(3 , minmax(13vh,19vh)); 
     width: 100%;
 }
 
 .front_board{
    display:grid;
    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 13vh repeat(3,  minmax(13vh,16vh));
-   width: 90%;   
+    grid-template-rows: 13vh repeat(3,  minmax(13vh,19vh));
+   width: 100%;   
 }
 
 .img_container{
@@ -126,3 +129,9 @@ body{
 h2{
     color: #fff;
 }
+/*
+.blocker{
+    opacity:0.9;
+    background-color: 3c4247;
+}
+*/
