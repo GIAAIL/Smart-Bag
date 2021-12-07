@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  
   <div class="container-top">
     <div board-with-title>
       <h2 class="bag-roles-title ">Bag Roles </h2>
@@ -100,14 +101,14 @@
         <h2>Device Status</h2>
         <ul class='list-group'>
           <li class="device-id">
-            <div class="list-group-item">
+            <div class="list-group-item list-group-item-dark">
               <h5>Device ID</h5>
               <p>Wemo-abcd1234</p>
               <button type="button" class="btn btn-warning not_supported_yet">Change</button>
             </div>
           </li>
           <li class="role-id">
-            <div class="list-group-item ">
+            <div class="list-group-item list-group-item-dark">
               <h5>Role ID</h5>
               <p>B11</p>
               <button type="button" class="btn btn-warning ">Change</button>
@@ -115,14 +116,14 @@
           </li>
           
           <li class="connect-time">
-            <div class="list-group-item">
+            <div class="list-group-item list-group-item-dark">
               <h5>Connect Time</h5>
               <p>2019-01-01 12:00:00</p>
               <button type="button" class="btn btn-danger" onclick="remove_focused_device()">Remove</button>
             </div>
           </li>
           <li class="control-value">
-            <div class="list-group-item">
+            <div class="list-group-item list-group-item-dark">
               <h5>Control Value</h5>
               <p>0</p>
               <input type="range" class="form-range btn-warning" id="control-range">
@@ -148,7 +149,7 @@
 
 <!--Template for Connected li Element !-->
   <template id="device_element_template">
-    <a class="list-group-item list-group-item-action border">
+    <a class="list-group-item  border">
       <div class=device-item >
         <h5>Wemo-abcd1234</h5>
         <button type="button" class="btn btn-secondary test_btn">Test</button>

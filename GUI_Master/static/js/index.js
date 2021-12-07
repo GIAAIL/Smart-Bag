@@ -226,11 +226,17 @@ function create_devices(connected_devices){
         new_node.onclick = () => {
             console.log("I am here")
             if( ! new_node.dead){
-                let current_focus =  {device: name_text, role: connected_devices[name_text]["role"]}
-                focus_state = current_focus
-                update_status(current_focus)
-                update_roles(current_focus)
-                update_devices(current_focus)
+                if(focus_state.device != name_text){
+                    focus_state =  {device: name_text, role: connected_devices[name_text]["role"]}
+                    update_status(focus_state)
+                    update_roles(focus_state)
+                    update_devices(focus_state)
+                }else{
+                    focus_state = {device: null, role: null}
+                    update_status(focus_state)
+                    update_roles(focus_state)
+                    update_devices(focus_state)
+                }
             }
             
         }
@@ -286,16 +292,19 @@ function update_devices(focus){
         }
 
         if(current_device == focus.device ){
-            node.classList.remove("list-group-item-success")
-            node.classList.add("list-group-item-warning")
+            node.classList.remove("list-group-item-green")
+            node.classList.remove("list-group-item-dark")
+            node.classList.add("list-group-item-orange")
         }
         else if(connected_devices[node.querySelector('h5').textContent]["role"] != null){
-            node.classList.remove("list-group-item-warning")
-            node.classList.add("list-group-item-success")
+            node.classList.remove("list-group-item-orange")
+            node.classList.remove("list-group-item-dark")
+            node.classList.add("list-group-item-green")
         }
         else{
-            node.classList.remove("list-group-item-warning")
-            node.classList.remove("list-group-item-success")
+            node.classList.remove("list-group-item-orange")
+            node.classList.remove("list-group-item-green")
+            node.classList.add("list-group-item-dark")
         }
     }
 }
@@ -319,16 +328,20 @@ function update_roles(focus){
         for(let role_name of Object.keys(Roles)){
             role_div = Roles[role_name]
             if(focus_state.role != null && focus_state.role == role_name){
-                setStroke(role_div, "#664d03" , "8px", 1)
+                role_div.classList.add("selected")
             }
-            else if(focus.role != null && role_name == focus.role){
+            else{
+                role_div.classList.remove("selected")
+            }
+            
+            if(focus.role != null && role_name == focus.role){
                 setStroke(role_div, "#ffc107" , "4px", 1)
             }
             else if(role_div.current_device != null){
-                setStroke(role_div, "#11cc11", "4px", 1)
+                setStroke(role_div, "#28a745", "4px", 1)
             }
             else{
-                setStroke(role_div, "black", "3px", 0.3)
+                setStroke(role_div, "#ffffff", "4px", 1)
             }
         }
     }

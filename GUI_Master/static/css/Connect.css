@@ -35,7 +35,15 @@
 }
 
 .selected{
-    border-width: 8px;
+    border-width: 5px;
     border-style: solid;
-    border-color: #664d03;
+    border-color: #dc3545;
+}
+
+.list-group-item-green{
+    background-color: #d1e7dd;
+}
+
+.list-group-item-orange{
+    background-color: #ffc107;
 }

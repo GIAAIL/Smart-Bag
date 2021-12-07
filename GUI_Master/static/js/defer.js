@@ -58,11 +58,20 @@ for(role_name of Object.keys(Roles)){
   e.onclick = function(){
     if (Roles_State == "show"){
       // update focus state
-      let current_focus = {device:e.current_device, role:e.name}
-      focus_state = current_focus
-      update_roles(current_focus)
-      update_status(current_focus)
-      update_devices(current_focus)
+      if(e.name != focus_state.role){
+        let current_focus = {device:e.current_device, role:e.name}
+        focus_state = current_focus
+        update_roles(current_focus)
+        update_status(current_focus)
+        update_devices(current_focus)
+      }
+      else{
+        // clear focus state
+        focus_state = {device:null, role:null}
+        update_roles(focus_state)
+        update_status(focus_state)
+        update_devices(focus_state)
+      }
     
     }
     else{
@@ -86,4 +95,4 @@ for(role_name of Object.keys(Roles)){
 
 update_status(focus_state)
 update_devices(focus_state)
-setTimeout(()=>update_roles(focus_state), 200)
+setTimeout(()=>update_roles(focus_state), 500)
