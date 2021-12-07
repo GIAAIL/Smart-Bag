@@ -11,14 +11,31 @@
     overflow: hidden;
 }
 .device-status  div{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
 }
 
 .connected-device .device-item{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-column-gap: 10px;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+}
+
+.hide{
+    display: none;
+}
+
+.not_supported_yet{
+    display:none;
+}
+
+.selected{
+    border-width: 8px;
+    border-style: solid;
+    border-color: #664d03;
 }

@@ -1,4 +1,5 @@
-from flask import Flask , render_template, jsonify
+from flask import Flask , render_template, jsonify, request
+import random
 
 app = Flask(__name__)
 
@@ -10,30 +11,53 @@ def hello():
 def scan_devices():
     device_names = {
         "Wemo-11aa":{
-            "role": "B11",
+            "role": "B23",
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
         "Wemo-22aa":{
-            "role": "B11",
+            "role": "B21",
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
         "Wemo-33aa":{
-            "role": "B11",
+            "role": "F32",
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
         "Wemo-44aa":{
-            "role": "B11",
+            "role": "F42",
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
         "Wemo-55aa":{
-            "role": "B11",
+            "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         }
     }
-    print(jsonify(devices=device_names))
-    return jsonify(devices=device_names)
+    return jsonify(status="success",devices=device_names)
+
+@app.route('/remove_role', methods=['POST'])
+def remove_role():
+    json_data = request.get_json()
+    print("Remove Role: device:{}, role:{}".format(json_data["device_name"], json_data["role_name"]))
+    return jsonify(status="success")
+
+@app.route('/assign_role', methods=['POST'])
+def assign_role():
+    json_data = request.get_json()
+    print("Assign Role: device:{}, role:{}".format(json_data["device_name"], json_data["role_name"]))
+    return jsonify(status="success")
+
+@app.route('/test_device', methods=['POST'])
+def test_device():
+    json_data = request.get_json()
+    print("Test Device: device:{}".format(json_data["device_name"]))
+    return jsonify(status="success")
+
+@app.route('/remove_device', methods=['POST'])
+def remove_device():
+    json_data = request.get_json()
+    print("Remove Device: device:{}".format(json_data["device_name"]))
+    return jsonify(status="success")

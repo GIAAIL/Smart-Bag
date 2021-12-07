@@ -23,7 +23,7 @@
           <div class = img_container id="B12">
             
           </div>
-          <div class = "img_container disabled" id="B13">
+          <div class = "img_container" id="B13">
             <img src="static/img/B13.svg" alt="B13" onload="SVGInject(this)" >
           </div>
   
@@ -99,6 +99,13 @@
       <div class="device-status">
         <h2>Device Status</h2>
         <ul class='list-group'>
+          <li class="device-id">
+            <div class="list-group-item">
+              <h5>Device ID</h5>
+              <p>Wemo-abcd1234</p>
+              <button type="button" class="btn btn-warning not_supported_yet">Change</button>
+            </div>
+          </li>
           <li class="role-id">
             <div class="list-group-item ">
               <h5>Role ID</h5>
@@ -106,18 +113,12 @@
               <button type="button" class="btn btn-warning ">Change</button>
             </div>
           </li>
-          <li class="device-id">
-            <div class="list-group-item">
-              <h5>Device ID</h5>
-              <p>Wemo-abcd1234</p>
-              <button type="button" class="btn btn-warning">Change</button>
-            </div>
-          </li>
+          
           <li class="connect-time">
             <div class="list-group-item">
               <h5>Connect Time</h5>
               <p>2019-01-01 12:00:00</p>
-              <button type="button" class="btn btn-danger">Remove</button>
+              <button type="button" class="btn btn-danger" onclick="remove_focused_device()">Remove</button>
             </div>
           </li>
           <li class="control-value">
@@ -147,11 +148,11 @@
 
 <!--Template for Connected li Element !-->
   <template id="device_element_template">
-    <a class="list-group-item list-group-item-action ">
-      <div class=device-item>
+    <a class="list-group-item list-group-item-action border">
+      <div class=device-item >
         <h5>Wemo-abcd1234</h5>
-        <button type="button" class="btn btn-secondary">Test</button>
-        <button type="button" class="btn btn-danger">Remove</button>
+        <button type="button" class="btn btn-secondary test_btn">Test</button>
+        <button type="button" class="btn btn-danger remove_btn">Remove</button>
       </div>
     </a>
   </template>

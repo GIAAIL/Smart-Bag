@@ -9,14 +9,17 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 10fr;
-    padding: 0%;
+    padding: 6vh;
+    height: 90vh;
 }
 .board{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10%;
+    grid-template-rows: 9fr 1fr;
+    grid-column-gap: 5vh;
     justify-items: center;
-    padding: 5%
+    padding: 5vh;
+    height: 80vh;
 }
 
 .bag-roles-title{
@@ -26,15 +29,15 @@
 .back_board{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(4 , minmax(13vh,17vh)); 
+    grid-template-rows: 10vh repeat(3 , minmax(13vh,19vh)); 
     width: 100%;
 }
 
 .front_board{
    display:grid;
    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4,  minmax(13vh,17vh));
-   width: 100%;   
+    grid-template-rows: 13vh repeat(3,  minmax(13vh,16vh));
+   width: 90%;   
 }
 
 .img_container{
@@ -43,8 +46,17 @@
     border-width:1px;
     border-style:solid;
     */
-    display: block;
-    text-align: center;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    
+    /*
+    position: relative;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);    
+    transform: translateX(-50%);
+    */
 }
 
 .back_board img{
@@ -67,7 +79,7 @@
 .panel{
     display:grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, minmax(40vh,50vh));
+    grid-template-rows: repeat(2, minmax(20vh,50vh));
     max-height: 80vh;
     row-gap: 5%
 }
@@ -103,3 +115,4 @@
     align-self: center;
     justify-self: center;
 }
+
