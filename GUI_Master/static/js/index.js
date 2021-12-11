@@ -130,6 +130,14 @@ function change_focused_role(){
     update_roles({device:null, role:null})
 }
 
+//callback function for contraol value range input in the upper right panel
+function update_value_range(){
+    let control_value_node = document.querySelector(".control-value")
+    let value = control_value_node.querySelector('input').value
+    control_value_node.querySelector('p').textContent = value.toString()
+    connected_devices[focus_state.device]["Control Value"] = value
+}   
+
 function update_status(focus){
     // show hovered device (focus.device) if no item selected (focus_state == null), else show selected item (focus_state) 
     if (focus_state.device != null && focus_state.role != null){
