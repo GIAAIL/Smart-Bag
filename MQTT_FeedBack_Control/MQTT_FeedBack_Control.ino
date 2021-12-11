@@ -33,14 +33,20 @@ String Ping_topic = String("/test/ping");
 
 // Update these with values suitable for your network.
 
+/*
 const char* ssid = "5F_2.4G1";
 const char* password = "12345678";
 const char* mqtt_server = "192.168.1.106";
+*/
 /*
 const char* ssid = "danki";
 const char* password = "ki1314ki";
 const char* mqtt_server = "192.168.1.105";
 */
+
+const char* ssid = "SMART-BAG";
+const char* password = "12345678";
+const char* mqtt_server = "192.168.0.102";
 const int mqtt_port = 9000;
 
 WiFiClient espClient;

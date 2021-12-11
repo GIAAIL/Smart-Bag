@@ -18,7 +18,7 @@
 
 .connected-device .device-item{
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-column-gap: 10px;
     justify-content: space-between;
     align-items: center;
@@ -41,9 +41,14 @@
 }
 
 .list-group-item-green{
-    background-color: #d1e7dd;
+    background-color: #28a745;
 }
 
 .list-group-item-orange{
     background-color: #ffc107;
+}
+
+.disabled{
+    background-color: #888888;
+    opacity: 0.5;
 }

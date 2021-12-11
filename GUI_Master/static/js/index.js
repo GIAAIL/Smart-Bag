@@ -98,7 +98,7 @@ function remove_device(device_name){
         node.onmouseenter = undefined
         node.onmouseleave = undefined
         node.onclick = undefined
-        node.querySelector(".remove_btn").onclick = undefined
+        //node.querySelector(".remove_btn").onclick = undefined
         node.querySelector(".test_btn").onclick = undefined
         device_list.removeChild(node)
         delete connected_devices[device_name]
@@ -120,16 +120,22 @@ function remove_focused_device(){
 }
 
 function update_status(focus){
+    // show hovered device (focus.device) if no item selected (focus_state == null), else show selected item (focus_state) 
+    if (focus_state.device != null && focus_state.role != null){
+        focus = focus_state 
+    }
     // update device list in upper right panel
     let role_node = document.querySelector(".role-id")
     let device_node = document.querySelector(".device-id")
     let connect_time_node = document.querySelector(".connect-time")
     let control_value_node = document.querySelector(".control-value")
+
     //console.log(control_value_node, connect_time_node)
     //console.log(focus)
     if(focus.device == null && focus.role == null){
         [role_node, device_node, connect_time_node, control_value_node].forEach(function(node){
             node.querySelector('div').classList.add("disabled")
+            node.style.opacity = 0.5
             if(node.querySelector('button')){
                 node.querySelector('button').classList.add("disabled")
                 node.querySelector('button').classList.add("hide")
@@ -147,16 +153,18 @@ function update_status(focus){
         role_node.querySelector('div').classList.remove("disabled")
         role_node.querySelector('button').classList.add("disabled")
         role_node.querySelector('button').classList.add("hide")
-
+        role_node.style.opacity = 0.8
 
         device_node.querySelector('p').textContent = "Not Assigned"
         device_node.querySelector('div').classList.remove("disabled")
         device_node.querySelector('button').classList.remove("disabled")
         device_node.querySelector('button').classList.remove("hide")
+        device_node.style.opacity = 0.8
 
         for(let node of [connect_time_node, control_value_node]){
             //console.log(node);
             node.querySelector('div').classList.add("disabled");
+            node.style.opacity = 0.5;
             if(node.querySelector('button')){
                 node.querySelector('button').classList.add("disabled");
                 node.querySelector('button').classList.add("hide");
@@ -174,22 +182,27 @@ function update_status(focus){
         role_node.querySelector('div').classList.remove("disabled")
         role_node.querySelector('button').classList.remove("disabled")
         role_node.querySelector('button').classList.remove("hide")
+        role_node.style.opacity = 0.8
 
         device_node.querySelector('p').textContent = focus.device
         device_node.querySelector('div').classList.remove("disabled")
         device_node.querySelector('button').classList.remove("disabled")
         device_node.querySelector('button').classList.remove("hide")
+        device_node.style.opacity = 0.8
 
         connect_time_node.querySelector('p').textContent = connected_devices[focus.device]["Connect Time"]
         connect_time_node.querySelector('div').classList.remove("disabled")
         connect_time_node.querySelector('button').classList.remove("disabled")
         connect_time_node.querySelector('button').classList.remove("hide")
+        connect_time_node.style.opacity = 0.8
 
         control_value_node.querySelector('p').textContent = connected_devices[focus.device]["Control Value"]
         control_value_node.querySelector('input').value = parseInt(connected_devices[focus.device]["Control Value"])
         control_value_node.querySelector('div').classList.remove("disabled")
         control_value_node.querySelector('input').classList.remove("disabled")
         control_value_node.querySelector('input').classList.remove("hide")
+        control_value_node.style.opacity = 0.8
+
     }
 }
 
@@ -233,9 +246,10 @@ function create_devices(connected_devices){
                     update_devices(focus_state)
                 }else{
                     focus_state = {device: null, role: null}
-                    update_status(focus_state)
-                    update_roles(focus_state)
-                    update_devices(focus_state)
+                    let current_focus = {device: name_text, role: connected_devices[name_text]["role"]}
+                    update_status(current_focus)
+                    update_roles(current_focus)
+                    update_devices(current_focus)
                 }
             }
             
@@ -247,11 +261,13 @@ function create_devices(connected_devices){
             update_roles(focus_state)
             update_devices(focus_state)
         }
-
+        
+        /*
         new_node.querySelector(".remove_btn").onclick = () => {
-            new_node.dead = true;
+                    new_node.dead = true;
             remove_device(name_text)
         }
+        */
 
         new_node.querySelector(".test_btn").onclick = () => {
             fetch('/test_device', {
@@ -280,18 +296,23 @@ function create_devices(connected_devices){
 
 function update_devices(focus){
     // update device list in lower right panel
+    let color_focus = focus
+    if(focus_state.device != null){
+        color_focus = focus_state
+    }
+
     let device_list = document.getElementById("device_list");
     for (let node of device_list.children){
-        
         current_device = node.querySelector('h5').textContent
-
-        if(current_device == focus_state.device){
-            node.querySelector("h5").classList.add("selected")
+        
+        // change opacity if hovered
+        if (focus.device == current_device){
+            node.style.opacity = 0.8
         }else{
-            node.querySelector("h5").classList.remove("selected")
+            node.style.opacity = 0.5
         }
-
-        if(current_device == focus.device ){
+        // change color if selected or connected
+        if(current_device == focus_state.device ){
             node.classList.remove("list-group-item-green")
             node.classList.remove("list-group-item-dark")
             node.classList.add("list-group-item-orange")
@@ -325,23 +346,32 @@ function setStroke(node, color, width, opacity){
 
 function update_roles(focus){
     if (Roles_State == "show"){
+
+        let color_focus = focus
+        if(focus_state.role != null){
+            color_focus = focus_state                
+        }
+        
         for(let role_name of Object.keys(Roles)){
             role_div = Roles[role_name]
-            if(focus_state.role != null && focus_state.role == role_name){
-                role_div.classList.add("selected")
+
+            // change opacity if hovered
+            if(focus.role == role_name){
+                setStroke(role_div, null , "7px", 0.6)
             }
             else{
-                role_div.classList.remove("selected")
+                setStroke(role_div, null , "4px", 0.6)
             }
-            
-            if(focus.role != null && role_name == focus.role){
-                setStroke(role_div, "#ffc107" , "4px", 1)
+
+            // change color if selected or connected
+            if(color_focus.role != null && role_name == focus_state.role ){
+                setStroke(role_div, "#ffc107" , null , null)
             }
             else if(role_div.current_device != null){
-                setStroke(role_div, "#28a745", "4px", 1)
+                setStroke(role_div, "#28a745", null, null)
             }
             else{
-                setStroke(role_div, "#ffffff", "4px", 1)
+                setStroke(role_div, "#888888", null, null)
             }
         }
     }
@@ -396,5 +426,4 @@ function refresh_devices(){
         //stop loading animation
         setTimeout(removeLoading, 300);        
     })
-
 }

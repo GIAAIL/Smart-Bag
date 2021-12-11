@@ -66,11 +66,12 @@ for(role_name of Object.keys(Roles)){
         update_devices(current_focus)
       }
       else{
-        // clear focus state
+        // clear focus state (unselect current role)
         focus_state = {device:null, role:null}
-        update_roles(focus_state)
-        update_status(focus_state)
-        update_devices(focus_state)
+        let current_focus = {device:e.current_device, role:e.name}
+        update_roles(current_focus)
+        update_status(current_focus)
+        update_devices(current_focus)
       }
     
     }

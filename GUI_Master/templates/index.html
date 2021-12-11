@@ -111,7 +111,7 @@
             <div class="list-group-item list-group-item-dark">
               <h5>Role ID</h5>
               <p>B11</p>
-              <button type="button" class="btn btn-warning ">Change</button>
+              <button type="button" class="btn btn-warning " onclick="focused_device_change_role()">Change</button>
             </div>
           </li>
           
@@ -149,11 +149,12 @@
 
 <!--Template for Connected li Element !-->
   <template id="device_element_template">
-    <a class="list-group-item  border">
+    <a class="list-group-item  border ">
       <div class=device-item >
         <h5>Wemo-abcd1234</h5>
         <button type="button" class="btn btn-secondary test_btn">Test</button>
-        <button type="button" class="btn btn-danger remove_btn">Remove</button>
+        
+        <!--button type="button" class="btn btn-danger remove_btn">Remove</button!-->
       </div>
     </a>
   </template>
