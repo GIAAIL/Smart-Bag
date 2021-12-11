@@ -96,35 +96,35 @@
     </div>  
   </div>
 
-    <div class="panel blocker">
+    <div class="panel ">
       <div class="device-status">
         <h2>Device Status</h2>
         <ul class='list-group'>
           <li class="device-id">
-            <div class="list-group-item list-group-item-dark">
-              <h5>Device ID</h5>
+            <div class="device-panel-item-dark">
+              <h4>Device ID</h4>
               <p>Wemo-abcd1234</p>
               <button type="button" class="btn btn-warning not_supported_yet">Change</button>
             </div>
           </li>
           <li class="role-id">
-            <div class="list-group-item list-group-item-dark">
-              <h5>Role ID</h5>
+            <div class=" device-panel-item-dark">
+              <h4>Role ID</h4>
               <p>B11</p>
-              <button type="button" class="btn btn-warning " onclick="focused_device_change_role()">Change</button>
+              <button type="button" class="btn btn-warning ">Change</button>
             </div>
           </li>
           
           <li class="connect-time">
-            <div class="list-group-item list-group-item-dark">
-              <h5>Connect Time</h5>
+            <div class=" device-panel-item-dark">
+              <h4>Last Time</h4>
               <p>2019-01-01 12:00:00</p>
               <button type="button" class="btn btn-danger" onclick="remove_focused_device()">Remove</button>
             </div>
           </li>
           <li class="control-value">
-            <div class="list-group-item list-group-item-dark">
-              <h5>Control Value</h5>
+            <div class=" device-panel-item-dark" id="last-device-panel-item">
+              <h4>Set Value</h4>
               <p>0</p>
               <input type="range" class="form-range btn-warning" id="control-range">
             </div>
@@ -136,7 +136,7 @@
       <div class="connected-device">
         <div class="title-and-button">
           <h2 >Connected Devices</h2>
-          <button class="btn btn-primary" onclick="refresh_devices()"> Refresh</button>
+          <button class="btn btn-secondary" id="refresh_btn" onclick="refresh_devices()"> Refresh</button>
         </div>
 
         <div class='list-group' id='device_list'>
@@ -149,11 +149,10 @@
 
 <!--Template for Connected li Element !-->
   <template id="device_element_template">
-    <a class="list-group-item  border ">
+    <a class="list-group-item  border">
       <div class=device-item >
-        <h5>Wemo-abcd1234</h5>
+        <h4>Wemo-abcd1234</h4>
         <button type="button" class="btn btn-secondary test_btn">Test</button>
-        
         <!--button type="button" class="btn btn-danger remove_btn">Remove</button!-->
       </div>
     </a>

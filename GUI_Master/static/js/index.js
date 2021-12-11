@@ -114,9 +114,14 @@ function remove_device(device_name){
     })
 }
 
-//call back function for remove button in the upper right panel
+//callback function for remove button in the upper right panel
 function remove_focused_device(){
     remove_device(focus_state.device)
+}
+
+//callback function for change role button in the upper right panel
+function change_focused_role(role_name){
+    
 }
 
 function update_status(focus){
@@ -217,7 +222,7 @@ function create_devices(connected_devices){
     let device_element_template = document.getElementById("device_element_template");
     for(let name_text of Object.keys(connected_devices)){
         let new_device = device_element_template.content.cloneNode(true);
-        let device_name = new_device.querySelector('h5');
+        let device_name = new_device.querySelector('h4');
         device_name.textContent = name_text;
         
         
@@ -303,13 +308,13 @@ function update_devices(focus){
 
     let device_list = document.getElementById("device_list");
     for (let node of device_list.children){
-        current_device = node.querySelector('h5').textContent
+        current_device = node.querySelector('h4').textContent
         
         // change opacity if hovered
         if (focus.device == current_device){
             node.style.opacity = 0.8
         }else{
-            node.style.opacity = 0.5
+            node.style.opacity = 0.7
         }
         // change color if selected or connected
         if(current_device == focus_state.device ){
@@ -317,7 +322,7 @@ function update_devices(focus){
             node.classList.remove("list-group-item-dark")
             node.classList.add("list-group-item-orange")
         }
-        else if(connected_devices[node.querySelector('h5').textContent]["role"] != null){
+        else if(connected_devices[node.querySelector('h4').textContent]["role"] != null){
             node.classList.remove("list-group-item-orange")
             node.classList.remove("list-group-item-dark")
             node.classList.add("list-group-item-green")
@@ -357,21 +362,21 @@ function update_roles(focus){
 
             // change opacity if hovered
             if(focus.role == role_name){
-                setStroke(role_div, null , "7px", 0.6)
+                setStroke(role_div, null , "7px", 0.8)
             }
             else{
-                setStroke(role_div, null , "4px", 0.6)
+                setStroke(role_div, null , "4px", 0.7)
             }
 
             // change color if selected or connected
             if(color_focus.role != null && role_name == focus_state.role ){
-                setStroke(role_div, "#ffc107" , null , null)
+                setStroke(role_div, "#E3C691" , null , null)
             }
             else if(role_div.current_device != null){
-                setStroke(role_div, "#28a745", null, null)
+                setStroke(role_div, "#67832B", null, null)
             }
             else{
-                setStroke(role_div, "#888888", null, null)
+                setStroke(role_div, "#837F7C", null, null)
             }
         }
     }
