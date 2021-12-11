@@ -3,6 +3,8 @@
     overflow: hidden;
     overflow-y:scroll;
     height:100%;
+    padding: 2vh;
+    
 }
 
 .device-status .list-group{
@@ -45,10 +47,9 @@
 .connected-device .device-item{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-column-gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    align-content: center;
+    justify-items: space-between;
+    padding: 5px;
 }
 
 .hide{
@@ -75,14 +76,18 @@
 
 .list-group-item-green{
     background-color: #67832B;
+    border-color: #67832B;
+    border-width: 2px;
 }
 
 .list-group-item-orange{
     background-color: #E3C691;
+    border-color: #E3C691;
 }
 
 .list-group-item-dark{
     background-color: #837F7C;
+    border-color: #837F7C;
 }
 
 
@@ -91,12 +96,9 @@
 }
 
 .device-item h4{
-    font-size: 1.3rem;
-    font-weight: light;
+    font-size: 1.5rem;
+    font-weight: bolder;
     font-family: 'Courier New', Courier, monospace;
     align-content: center;
     color: #754A04;
 }
-
-
-

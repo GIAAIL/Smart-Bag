@@ -10,7 +10,9 @@ var focus_state = {
 
 
 function assign_role(device_name, role_name){
-  
+    if (connected_devices[device_name]["role"] != null){
+        remove_role(device_name, connected_devices[device_name]["role"])
+    }
     // fetch devices information from server
     fetch('/assign_role', {
         method: 'POST',
@@ -120,8 +122,12 @@ function remove_focused_device(){
 }
 
 //callback function for change role button in the upper right panel
-function change_focused_role(role_name){
-    
+function change_focused_role(){
+    let panel_div = document.querySelector(".panel")
+    panel_div.style.opacity = 0.3   
+    panel_div.style.pointerEvents = "none"
+    Roles_State = "select"
+    update_roles({device:null, role:null})
 }
 
 function update_status(focus){
@@ -381,20 +387,33 @@ function update_roles(focus){
         }
     }
     else{
+
+
         // Roles_State = "select"
         for(let role_name of Object.keys(Roles)){
             role_div = Roles[role_name]
-            if(focus.role != null && role_name == focus.role && role_div.current_device == null){
-                setStroke(role_div, null , "8px", 1)
-            }
-            else if (role_div.current_device != null){
-                setStroke(role_div, "green", "3px", 0.5)
+
+            // change opacity if hovered
+            if(focus.role == role_name){
+                setStroke(role_div, null , "7px", 0.8)
             }
             else{
-                setStroke(role_div, "black", "4px", 1)
+                setStroke(role_div, null , "4px", 0.7)
+            }
+
+            // hovered
+            if(focus.role != null && role_name == focus_state.role ){
+                setStroke(role_div, "#E3C691" , null , null)
+            }
+            // available
+            if(role_div.current_device == null || focus_state.device==role_name){
+                setStroke(role_div, "#C9BFBB", null, null)
+            }
+            // ocupied
+            else{
+                setStroke(role_div, "#4C6020", null, null)
             }
         }
-        
     }
 }
 

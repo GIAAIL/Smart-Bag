@@ -49,10 +49,18 @@ for(role_name of Object.keys(Roles)){
   e.onmouseout = function(){
     if (e.mouseover == true){
       e.mouseover = false
-      update_roles(focus_state)
-      update_status(focus_state)
-      update_devices(focus_state)
-      e.style.cursor = 'default'
+      if(e.current_device == null || Roles_State == "show"){
+        update_roles(focus_state)
+        update_status(focus_state)
+        update_devices(focus_state)
+        e.style.cursor = 'default'
+      }
+      else{
+        //device is not available in selection
+        update_roles({device:null, role:null})
+        update_status({device:null, role:null})
+        update_devices({device:null, role:null})
+      }
     }
   }
   e.onclick = function(){
@@ -79,10 +87,15 @@ for(role_name of Object.keys(Roles)){
       if(e.current_device == null){
         // assign role to device
         showLoading()
+        Roles_State = "show"
         assign_role(focus_state.device, e.name)
-        update_roles(current_focus)
-        update_status(current_focus)
-        update_devices(current_focus)
+        focus_state = {device:focus_state.device, role:e.name}
+        update_roles(focus_state)
+        update_status(focus_state)
+        update_devices(focus_state)
+        let panel_div = document.querySelector(".panel")
+        panel_div.style.opacity = 1
+        panel_div.style.pointerEvents = "auto"
         setTimeout(removeLoading, 300)
       }
     }
