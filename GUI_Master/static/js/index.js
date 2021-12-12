@@ -9,12 +9,12 @@ var focus_state = {
 
 
 
-function assign_role(device_name, role_name){
+async function assign_role(device_name, role_name){
     if (connected_devices[device_name]["role"] != null){
         remove_role(device_name, connected_devices[device_name]["role"])
     }
     // fetch devices information from server
-    fetch('/assign_role', {
+    return fetch('/assign_role', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -31,18 +31,20 @@ function assign_role(device_name, role_name){
         if(data.status == "success"){
             Roles[role_name].current_device = device_name
             connected_devices[device_name]["role"] = role_name
+            return true
         }
         else{
             alert("Assign role failed")
+            return false
         }
     }
     )
 }
 
-function remove_role(device_name, role_name){
+async function remove_role(device_name, role_name){
     
     // fetch devices information from server
-    fetch('/remove_role', {
+    return fetch('/remove_role', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -59,11 +61,12 @@ function remove_role(device_name, role_name){
         if(data.status == "success"){
             Roles[role_name].current_device = null
             connected_devices[device_name]["role"] = null
+            return true
         }
         else{
             alert("Remove role failed")
+            return false
         }
-      
     }
     )
 }
@@ -96,7 +99,7 @@ function remove_device(device_name){
         if(data.status == "success"){
 
         let device_list = document.getElementById("device_list");
-        let node = device_list.querySelector(`.${device_name}`)
+        let node = device_list.querySelector(`.${CSS.escape(device_name)}`)
         node.onmouseenter = undefined
         node.onmouseleave = undefined
         node.onclick = undefined
@@ -117,8 +120,17 @@ function remove_device(device_name){
 }
 
 //callback function for remove button in the upper right panel
-function remove_focused_device(){
-    remove_device(focus_state.device)
+async function remove_focused_role(){
+    //remove_device(focus_state.device)
+    showLoading();
+    current_device = focus_state.device
+    await remove_role(current_device, focus_state.role)
+    focus_state.role = null
+    update_roles(focus_state)
+    update_devices(focus_state)
+    update_status(focus_state)
+    setTimeout(removeLoading, 300);
+    
 }
 
 //callback function for change role button in the upper right panel
@@ -128,6 +140,7 @@ function change_focused_role(){
     panel_div.style.pointerEvents = "none"
     Roles_State = "select"
     update_roles({device:null, role:null})
+
 }
 
 //callback function for contraol value range input in the upper right panel
@@ -140,7 +153,7 @@ function update_value_range(){
 
 function update_status(focus){
     // show hovered device (focus.device) if no item selected (focus_state == null), else show selected item (focus_state) 
-    if (focus_state.device != null && focus_state.role != null){
+    if (focus_state.device != null || focus_state.role != null){
         focus = focus_state 
     }
     // update device list in upper right panel
@@ -169,6 +182,7 @@ function update_status(focus){
     }
     else if(focus.device == null){
         role_node.querySelector('p').textContent = focus.role
+        role_node.querySelector('p').style.color = "#E3C691"
         role_node.querySelector('div').classList.remove("disabled")
         role_node.querySelector('button').classList.add("disabled")
         role_node.querySelector('button').classList.add("hide")
@@ -198,10 +212,27 @@ function update_status(focus){
     else{
         let current_role = connected_devices[focus.device]["role"]
         role_node.querySelector('p').textContent = current_role? current_role : "Not Assigned"
+        role_node.querySelector('p').style.color = current_role? "green" : "red"
         role_node.querySelector('div').classList.remove("disabled")
         role_node.querySelector('button').classList.remove("disabled")
         role_node.querySelector('button').classList.remove("hide")
         role_node.style.opacity = 0.8
+        // update button 
+        if (current_role == null){
+            btn = role_node.querySelector('button')
+            btn.onclick = change_focused_role
+            btn.textContent = "Assign Role"
+            btn.classList.remove("btn-danger")
+            btn.classList.add("btn-warning")
+        }
+        else{
+            btn = role_node.querySelector('button')
+            btn.onclick = remove_focused_role
+            btn.textContent = "Remove Role"
+            btn.classList.remove("btn-warning")
+            btn.classList.add("btn-danger")
+        }
+
 
         device_node.querySelector('p').textContent = focus.device
         device_node.querySelector('div').classList.remove("disabled")
@@ -256,7 +287,6 @@ function create_devices(connected_devices){
             update_devices(current_focus)
         }
         new_node.onclick = () => {
-            console.log("I am here")
             if( ! new_node.dead){
                 if(focus_state.device != name_text){
                     focus_state =  {device: name_text, role: connected_devices[name_text]["role"]}

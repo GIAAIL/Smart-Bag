@@ -63,7 +63,7 @@ for(role_name of Object.keys(Roles)){
       }
     }
   }
-  e.onclick = function(){
+  e.onclick = async function(){
     if (Roles_State == "show"){
       // update focus state
       if(e.name != focus_state.role){
@@ -88,7 +88,7 @@ for(role_name of Object.keys(Roles)){
         // assign role to device
         showLoading()
         Roles_State = "show"
-        assign_role(focus_state.device, e.name)
+        await assign_role(focus_state.device, e.name)
         focus_state = {device:focus_state.device, role:e.name}
         update_roles(focus_state)
         update_status(focus_state)

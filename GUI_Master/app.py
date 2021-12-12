@@ -10,27 +10,37 @@ def hello():
 @app.route('/scan_devices')
 def scan_devices():
     device_names = {
-        "Wemo-11aa":{
-            "role": "B23",
+        "Wemo-fc:34:97:b8:0c:15":{
+            "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
-        "Wemo-22aa":{
-            "role": "B21",
+        "Wemo-cg:e4:g7:aa:0d:53":{
+            "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
-        "Wemo-33aa":{
-            "role": "F32",
+        "Wemo-dc:64:a4:1b:75:43":{
+            "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
-        "Wemo-44aa":{
-            "role": "F42",
+        "Wemo-44:aa:c9:c7:76:33":{
+            "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
         },
-        "Wemo-55aa":{
+        "Wemo-cc:bd:b8:3d:00:13":{
+            "role": None,
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-c7:33:64:79:18:d4":{
+            "role": None,
+            "Connect Time": "2019-01-01 12:00:00",
+            "Control Value": "0"
+        },
+        "Wemo-aa:dd:a8:42:0a:16":{
             "role": None,
             "Connect Time": "2019-01-01 12:00:00",
             "Control Value": "0"
