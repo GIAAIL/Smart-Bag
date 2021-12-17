@@ -109,4 +109,4 @@ for(role_name of Object.keys(Roles)){
 
 update_status(focus_state)
 update_devices(focus_state)
-setTimeout(()=>update_roles(focus_state), 500)
+setTimeout(()=>update_roles(focus_state), 1000)

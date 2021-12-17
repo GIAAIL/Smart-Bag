@@ -1,50 +1,83 @@
-// Create a client instance
-client_id = "GUI_Master_" + parseInt(Math.random() * 100, 10);
-client = new Paho.MQTT.Client("broker.emqx.io", Number(8083), client_id );
-client.startTrace();
-// set callback handlers
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
-
-// connect the client
-client.connect({onSuccess:onConnect,
-                useSSL: true});
-console.log("attempting to connect...")
-
-
-// called when the client connects
-function onConnect() {
-  // Once a connection has been made, make a subscription and send a message.
-  console.log("onConnect");
-  client.subscribe("/World");
-  message = new Paho.MQTT.Message("Hello");
-  message.destinationName = "/World";
-  //client.send(message);
-//console.log(client.getTraceLog());
-
-  //client.getTraceLog().forEach(function(line){
-  //  console.log('Trace: ' + line)
-  //});
-  //newMessage = new Paho.MQTT.Message("Sent using synonyms!");
-  //newMessage.topic = "/World";
-  client.publish(message)
-  client.publish("/World", "Hello from a better publish call!", 1, false)
-
-  topicMessage = new Paho.MQTT.Message("This is a message where the topic is set by setTopic");
-  topicMessage.topic = "/World";
-  client.publish(topicMessage)
-
-
+const clientId = 'GUI_Master_' + Math.random().toString(16).substr(2, 8)
+console.log("This is clientId: " + clientId)
+const host = 'ws://broker.emqx.io:8083/mqtt'
+const options = {
+  keepalive: 60,
+  clientId: clientId,
+  protocolId: 'MQTT',
+  protocolVersion: 4,
+  clean: true,
+  reconnectPeriod: 1000,
+  connectTimeout: 30 * 1000,
+  will: {
+    topic: 'WillMsg',
+    payload: 'Connection Closed abnormally..!',
+    qos: 0,
+    retain: false
+  },
 }
 
-// called when the client loses its connection
-function onConnectionLost(responseObject) {
-  if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
+console.log('Connecting mqtt client')
+const client = mqtt.connect(host, options)
+
+client.on('error', (err) => {
+  console.log('Connection error: ', err)
+  client.end()
+})
+
+client.on('reconnect', () => {
+  console.log('Reconnecting...')
+})
+
+client.on('connect', () => {
+  console.log('Client connected: ' + clientId)
+  // Subscribe
+  client.subscribe('/test/test_smart_bag_devices', { qos: 2 })
+  client.subscribe('/test', { qos: 2 })
+})
+
+client.on('message',(topic, message) => {
+  if(topic=='/test/test_smart_bag_devices'){
+    if(message.toString() != "who_are_you"){
+      let temp = message.toString().split(' ')
+      let client_name = temp[0]
+      let client_value = temp[1]
+      
+      if(connected_devices.hasOwnProperty(client_name)){
+        connected_devices[client_name]["Control Value"] = client_value
+      }
+      else{
+        connected_devices[client_name] = {
+          role: null,
+          "Control Value": client_value,
+          "Connect Time": new Date().toLocaleString(),
+          "last_control_time": new Date().getTime()
+        }
+      }
+    }
   }
-}
+})
 
-// called when a message arrives
-function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
-}
+
+// Usage Examples: 
+
+
+// Publish
+//client.publish('/test/test_smart_bag_devices', 'ws connection demo...!\nwho_are_you', { qos: 2, retain: false })
+
+
+
+// Received
+/*
+client.on('message', (topic, message, packet) => {
+  console.log('Received Message: ' + message.toString() + '\nOn topic: ' + topic)
+})
+*/
+
+
+// Unsubscribe
+/*
+client.unubscribe('testtopic', () => {
+  console.log('Unsubscribed')
+})
+*/

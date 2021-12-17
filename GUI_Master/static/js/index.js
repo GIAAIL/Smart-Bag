@@ -1,19 +1,23 @@
+var scanning_devices = false;
 var Roles = {}
 var Roles_State = "show"
 var Device_State = "show"
-var connected_devices = []
+var connected_devices = {}
 var focus_state = {
     "device": null,
     "role": null
 }
 
 
-
 async function assign_role(device_name, role_name){
     if (connected_devices[device_name]["role"] != null){
         remove_role(device_name, connected_devices[device_name]["role"])
     }
+    Roles[role_name].current_device = device_name
+    connected_devices[device_name]["role"] = role_name
+    return true
     // fetch devices information from server
+    /*
     return fetch('/assign_role', {
         method: 'POST',
         headers: {
@@ -39,11 +43,17 @@ async function assign_role(device_name, role_name){
         }
     }
     )
+    */
 }
 
 async function remove_role(device_name, role_name){
     
+    Roles[role_name].current_device = null
+    connected_devices[device_name]["role"] = null
+    return true;
+
     // fetch devices information from server
+    /*
     return fetch('/remove_role', {
         method: 'POST',
         headers: {
@@ -69,7 +79,9 @@ async function remove_role(device_name, role_name){
         }
     }
     )
+    */
 }
+
 
 function remove_device(device_name){
     //start loading animation
@@ -82,7 +94,24 @@ function remove_device(device_name){
     if(connected_devices[device_name]["role"] != null){
         remove_role(device_name, connected_devices[device_name]["role"])
     }
+
+    client.publish(device_name, "0", {qos: 1, retain: true});
+    let device_list = document.getElementById("device_list");
+    let node = device_list.querySelector(`.${CSS.escape(device_name)}`)
+    node.onmouseenter = undefined
+    node.onmouseleave = undefined
+    node.onclick = undefined
+    //node.querySelector(".remove_btn").onclick = undefined
+    node.querySelector(".test_btn").onclick = undefined
+    device_list.removeChild(node)
+    delete connected_devices[device_name]
+    update_status(focus_state)
+    update_roles(focus_state)
+    update_devices(focus_state)
+    setTimeout(removeLoading, 300);
+    
     // fetch devices information from server
+    /*
     fetch('/remove_device', {
         method: 'POST',
         headers: {
@@ -117,6 +146,7 @@ function remove_device(device_name){
         }
         setTimeout(removeLoading, 300);
     })
+    */
 }
 
 //callback function for remove button in the upper right panel
@@ -149,7 +179,24 @@ function update_value_range(){
     let value = control_value_node.querySelector('input').value
     control_value_node.querySelector('p').textContent = value.toString()
     connected_devices[focus_state.device]["Control Value"] = value
-}   
+    if(new Date().getTime() - connected_devices[focus_state.device]["last_control_time"] > 50){
+        client.publish(focus_state.device, value, {qos: 1, retain: false});
+        connected_devices[focus_state.device]["last_control_time"] = new Date().getTime()
+    }
+    
+}
+// send the final value of range bar to the device
+function submit_value_range(){
+    let control_value_node = document.querySelector(".control-value")
+    let value = control_value_node.querySelector('input').value
+    client.publish(focus_state.device, value, {qos: 1, retain: false});
+    connected_devices[focus_state.device]["last_control_time"] = new Date().getTime()
+}
+
+//callback function for "disconnect" button in the upper right panel
+function disconnect_focused_device(){ 
+    remove_device(focus_state.device);
+}
 
 function update_status(focus){
     // show hovered device (focus.device) if no item selected (focus_state == null), else show selected item (focus_state) 
@@ -319,6 +366,21 @@ function create_devices(connected_devices){
         */
 
         new_node.querySelector(".test_btn").onclick = () => {
+            showLoading();
+            // send test message to server 
+            client.publish(name_text, "100", {qos: 0, retain: false})
+            setTimeout(() => {
+                client.publish(name_text, "1", {qos: 1, retain: false})
+                setTimeout(()=>{
+                   client.publish(name_text, "100", {qos: 0, retain: false})
+                   setTimeout(()=>{
+                          client.publish(name_text, "1", {qos: 1, retain: false})
+                          removeLoading();
+                   }, 300)
+                }, 300)
+            } , 300)
+
+            /*
             fetch('/test_device', {
                 method: 'POST',
                 headers: {
@@ -339,6 +401,7 @@ function create_devices(connected_devices){
                 }
             }
             )
+            */
         }
     }                    
 }
@@ -459,7 +522,31 @@ function refresh_devices(){
     //start loading animation
     showLoading();
     focus_state = {device: null, role: null}
+    client.publish('/test/test_smart_bag_devices', 'who_are_you', { qos: 2, retain: false })
+    scanning_devices = true;
+    setTimeout(() => {
+        scanning_devices = false;
+        //update current device in each element of Roles
+        for(let role_name of Object.keys(Roles)){
+            Roles[role_name].current_device = null
+        }
+        for(let key of Object.keys(connected_devices)){
+            device = connected_devices[key]
+            //console.log(key)
+            if(device["role"] != null){
+                Roles[device["role"]].current_device = key
+            }
+        }
+        create_devices(connected_devices)
+        update_roles(focus_state)
+        update_devices(focus_state)
+        setTimeout(removeLoading, 100);  
+    }, 500)
+
+
+    
     // fetch devices information from server
+    /*
     fetch('/scan_devices')
     .then(response => response.json())
     .then(data =>{
@@ -488,4 +575,5 @@ function refresh_devices(){
         //stop loading animation
         setTimeout(removeLoading, 300);        
     })
+    */
 }
