@@ -26,7 +26,7 @@ async function assign_role(device_name, role_name){
     })
     .then(response => response.json())
     .then(data =>{
-        console.log(data)
+        //console.log(data)
         //stop loading animation
         if(data.status == "success"){
             Roles[role_name].current_device = device_name
@@ -56,7 +56,7 @@ async function remove_role(device_name, role_name){
     })
     .then(response => response.json())
     .then(data =>{
-        console.log(data)
+        //console.log(data)
         //stop loading animation
         if(data.status == "success"){
             Roles[role_name].current_device = null
@@ -94,7 +94,7 @@ function remove_device(device_name){
     })
     .then(response => response.json())
     .then(data =>{
-        console.log(data)
+        //console.log(data)
         //stop loading animation
         if(data.status == "success"){
 
@@ -280,7 +280,7 @@ function create_devices(connected_devices){
         new_node.classList.add(name_text)
          //set callback function
         new_node.onmouseenter = () => {
-            console.log(name_text)
+            //(name_text)
             let current_focus =  {device: name_text, role: connected_devices[name_text]["role"]}
             update_status(current_focus)
             update_roles(current_focus)
@@ -330,7 +330,7 @@ function create_devices(connected_devices){
                 })
             .then(response => response.json())
             .then(data =>{
-                console.log(data)
+                //console.log(data)
                 if(data.status == "success"){
                     alert("Test device success")
                 }
@@ -463,7 +463,7 @@ function refresh_devices(){
     fetch('/scan_devices')
     .then(response => response.json())
     .then(data =>{
-        console.log(data.devices)
+        //console.log(data.devices)
         if(data.status != "success"){
             alert("Error in fetching devices")
         }
@@ -476,7 +476,7 @@ function refresh_devices(){
             }
             for(let key of Object.keys(connected_devices)){
                 device = connected_devices[key]
-                console.log(key)
+                //console.log(key)
                 if(device["role"] != null){
                     Roles[device["role"]].current_device = key
                 }

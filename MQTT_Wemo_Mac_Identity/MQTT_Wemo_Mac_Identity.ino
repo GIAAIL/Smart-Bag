@@ -25,7 +25,7 @@ String LED_topic_in = String("test/command/LED");
 String Time_topic_out = String("test/sensor/Time");
 */
 //special channel for testing 
-String Ping_topic = String("/test/ping");
+String Ping_topic = String("/test/test_smart_bag_devices");
 
 
 // Pin for Motors
@@ -45,12 +45,15 @@ char deviceId[50];
 unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE  (50)
 char msg[MSG_BUFFER_SIZE];
+int current_pwm = 0;
 
 // WIFI for SMART_BAG AP
+/*
 const char* ssid = "SMART-BAG";
 const char* password = "12345678";
 const char* mqtt_server = "192.168.0.102";
 const int mqtt_port = 9000;
+*/
 
 /* WIFI at classroom
 const char* ssid = "danki";
@@ -58,6 +61,13 @@ const char* password = "ki1314ki";
 const char* mqtt_server = "192.168.1.105";
 const int mqtt_port = 8080;
 */
+
+//WIFI of my PHONE
+const char* ssid = "nemo_iPhone";
+const char* password = "12345678";
+const char* mqtt_server = "broker.emqx.io";
+const int mqtt_port = 1883;
+
 
 
 
@@ -98,12 +108,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println();
   if (tp == String(deviceId)){
       // 幫浦PWM控制
-      analogWrite(Motor1, pl.toInt());
+      current_pwm = pl.toInt();
+      analogWrite(Motor1, current_pwm);
       analogWrite(Motor2, 0);
-      //analogWrite(Valve1, pl.toInt());
-      //Serial.printf("PWM %d",pl.toInt());
+      //analogWrite(Valve1, current_pwm);
+      //Serial.printf("PWM %d",current_pwm);
       //digitalWrite(Valve2, LOW);
-      if(pl.toInt() == 0){
+      if(current_pwm == 0){
         // 讓氣嘴接往洩氣口
         analogWrite(Valve1, 255);
         digitalWrite(Valve2, LOW);
@@ -115,11 +126,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
         }
       
     } 
-      //Serial.println(pl.toInt());
+      //Serial.println(current_pwm);
   else if (tp == Ping_topic){
       //Serial.println('ping');
       if (pl == String("who_are_you")){
-          client.publish(Ping_topic.c_str(), deviceId);
+          char message[50];
+          sprintf(message, "%s %d", deviceId, current_pwm);
+          client.publish(Ping_topic.c_str(), message);
       }  
   }  
 }
@@ -158,7 +171,7 @@ void setup() {
   uint8_t mac[WL_MAC_ADDR_LENGTH];
   WiFi.softAPmacAddress(mac);
   //char deviceId[50]; this variable is moved to global
-  sprintf(deviceId, "%s_%02X%02X%02X%02X%02X%02X", "WEMO"
+  sprintf(deviceId, "%s_%02X-%02X-%02X-%02X-%02X-%02X", "WEMO"
             , mac[WL_MAC_ADDR_LENGTH - 6], mac[WL_MAC_ADDR_LENGTH - 5]
             , mac[WL_MAC_ADDR_LENGTH - 4], mac[WL_MAC_ADDR_LENGTH - 3]
             , mac[WL_MAC_ADDR_LENGTH - 2], mac[WL_MAC_ADDR_LENGTH - 1]);

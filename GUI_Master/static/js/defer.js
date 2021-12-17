@@ -19,11 +19,11 @@ B_img.forEach(function(e,i){
       }
     })
 
-console.log(Roles)
-console.log(Object.keys(Roles))
+//console.log(Roles)
+//console.log(Object.keys(Roles))
 // attach callbacks to track mouseover and mouseout events
 for(role_name of Object.keys(Roles)){
-  console.log(role_name)
+  //console.log(role_name)
   let e = Roles[role_name]
   // current devices assigned to this role
   e.current_device = null
