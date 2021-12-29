@@ -1,6 +1,6 @@
 const clientId = 'GUI_Master_' + Math.random().toString(16).substr(2, 8)
 console.log("This is clientId: " + clientId)
-const host = 'ws://broker.emqx.io:8083/mqtt'
+const host = 'wss://broker.emqx.io:8084/mqtt'
 const options = {
   keepalive: 60,
   clientId: clientId,
