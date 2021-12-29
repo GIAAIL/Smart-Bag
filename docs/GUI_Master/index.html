@@ -1,0 +1,183 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Smart Bag Controller</title>
+    <link rel="stylesheet" href="static/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+    <script src="static/js/mqtt.min.js"></script>
+    <link rel="stylesheet" href="static/css/Grid.css">
+    <link rel="stylesheet" href="static/css/Connect.css">
+    <link rel="stylesheet" href="static/css/toggle.css">
+    <script src="static/js/svg-inject.min.js"></script>
+    <script src="static/js/loading.js"></script>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/MQTT.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/img/favicon_chicken_128x128.png">
+</head>
+<body>
+  <div clas="nav-container">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-darkxs ">
+      <h1 class="navbar-brand">Smart Bag Controller</h1>
+      <button id=save-settings class="btn btn-secondary" >Save Settings</button>
+      <button id=load-settings class="btn btn-secondary" >Load settings</button>
+      <div class="can-toggle">
+        <input id="a" type="checkbox">
+        <label for="a">
+          <div class="can-toggle__switch" data-checked="On" data-unchecked="Off"></div>
+          <div class="can-toggle__label-text">.can-toggle</div>
+        </label>
+      </div>
+  
+    </nav>
+  </div>
+
+  <div class="container-top">
+    <div board-with-title>
+      <h2 class="bag-roles-title ">Bag Roles </h2>
+      <div class="board">
+        <div class="back_board ">
+          <div class = img_container id=B11>
+            <img src="static/img/B11.svg" alt="B11" onload="SVGInject(this)" >
+           
+          </div>
+          <div class = img_container id="B12">
+            
+          </div>
+          <div class = "img_container" id="B13">
+            <img src="static/img/B13.svg" alt="B13" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="B21">
+            <img src="static/img/B21.svg" alt="B21" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B22">
+            <img src="static/img/B22.svg" alt="B22" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B23">
+            <img src="static/img/B23.svg" alt="B23" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="B31">
+            <img src="static/img/B31.svg" alt="B31" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B32">
+            <img src="static/img/B32.svg" alt="B32" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B33">
+            <img src="static/img/B33.svg" alt="B33" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="B41">
+            <img src="static/img/B41.svg" alt="B41" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B42">
+            <img src="static/img/B42.svg" alt="B42" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="B43">
+            <img src="static/img/B43.svg" alt="B43" onload="SVGInject(this)" >
+          </div>
+        </div>
+      
+        <div class="front_board ">
+          <div class = img_container id="F11">
+            <img src="static/img/F11.svg" alt="F11" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="F12">
+            <img src="static/img/F12.svg" alt="F12" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="F21">
+            <img src="static/img/F21.svg" alt="F21" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="F22">
+            <img src="static/img/F22.svg" alt="F22" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="F31">
+            <img src="static/img/F31.svg" alt="F31" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="F32">
+            <img src="static/img/F32.svg" alt="F32" onload="SVGInject(this)" >
+          </div>
+  
+          <div class = img_container id="F41">
+            <img src="static/img/F41.svg" alt="F41" onload="SVGInject(this)" >
+          </div>
+          <div class = img_container id="F42">
+            <img src="static/img/F42.svg" alt="F42" onload="SVGInject(this)" >
+          </div>
+        </div>
+  
+  
+        <h2>Back</h2>
+        <h2>Front</h2>
+  
+      </div>  
+    </div>
+
+    <div class="panel ">
+      <div class="device-status">
+        <h2>Device Status</h2>
+        <ul class='list-group'>
+          <li class="device-id">
+            <div class="device-panel-item-dark">
+              <h4>Device ID</h4>
+              <p>Wemo-abcd1234</p>
+              <button type="button" class="btn btn-warning not_supported_yet">Change</button>
+            </div>
+          </li>
+          <li class="role-id">
+            <div class=" device-panel-item-dark">
+              <h4>Role ID</h4>
+              <p>B11</p>
+              <button type="button" class="btn btn-warning " onclick="change_focused_role()">Change</button>
+            </div>
+          </li>
+          
+          <li class="connect-time">
+            <div class=" device-panel-item-dark">
+              <h4>Last Time</h4>
+              <p>2019-01-01 12:00:00</p>
+              <!--button type="button" class="btn btn-danger" onclick="remove_focused_role()">Remove</button!-->
+              <button type="button" class="btn btn-danger" onClick="disconnect_focused_device()">Disconnect</button>
+            </div>
+          </li>
+          <li class="control-value">
+            <div class=" device-panel-item-dark" id="last-device-panel-item">
+              <h4>Set Value</h4>
+              <p>0</p>
+              <input type="range" class="form-range btn-warning" id="control-range" max=255 min=0 oninput="update_value_range()" onmouseup="submit_value_range()">
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+
+      <div class="connected-device">
+        <div class="title-and-button">
+          <h2 >Connected Devices</h2>
+          <button class="btn btn-secondary" id="refresh_btn" onclick="refresh_devices()"> Refresh</button>
+        </div>
+
+        <div class='list-group' id='device_list'>
+            
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<!--Template for Connected li Element !-->
+  <template id="device_element_template">
+    <div class="list-group-item ">
+      <div class="device-item ">
+        <h4>Wemo-abcd1234</h4>
+        <button type="button" class="btn btn-secondary test_btn">Test</button>
+        <!--button type="button" class="btn btn-danger remove_btn">Remove</button!-->
+      </div>
+    </div>
+  </template>
+
+  <script src="static/js/defer.js" defer></script>
+</body>
+</html>
