@@ -33,6 +33,10 @@ body{
     transition: transform 0.5s ease-in-out;
 }
 
+#navbar .label{
+    width: 100%
+}
+
 #navbar .can-toggle__label-text{
     color: #a09b98;
 }
@@ -179,3 +183,7 @@ h1{
     background-color: 3c4247;
 }
 */
+
+#upload_json{
+    display:none;
+}

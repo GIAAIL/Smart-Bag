@@ -1,63 +1,85 @@
-const clientId = 'GUI_Master_' + Math.random().toString(16).substr(2, 8)
-console.log("This is clientId: " + clientId)
-const host = 'wss://broker.emqx.io:8084/mqtt'
-const options = {
-  keepalive: 60,
-  clientId: clientId,
-  protocolId: 'MQTT',
-  protocolVersion: 4,
-  clean: true,
-  reconnectPeriod: 1000,
-  connectTimeout: 30 * 1000,
-  will: {
-    topic: 'WillMsg',
-    payload: 'Connection Closed abnormally..!',
-    qos: 0,
-    retain: false
-  },
-}
+var client = null
 
-console.log('Connecting mqtt client')
-const client = mqtt.connect(host, options)
+function establish_connection(status_text) {
 
-client.on('error', (err) => {
-  console.log('Connection error: ', err)
-  client.end()
-})
+  const clientId = 'GUI_Master_' + Math.random().toString(16).substr(2, 8)
+  console.log("This is clientId: " + clientId)
+  const host = 'wss://broker.emqx.io:8084/mqtt'
+  const options = {
+    keepalive: 60,
+    clientId: clientId,
+    protocolId: 'MQTT',
+    protocolVersion: 4,
+    clean: true,
+    reconnectPeriod: 1000,
+    connectTimeout: 30 * 1000,
+    will: {
+      topic: 'WillMsg',
+      payload: 'Connection Closed abnormally..!',
+      qos: 0,
+      retain: false
+    },
+  }
 
-client.on('reconnect', () => {
-  console.log('Reconnecting...')
-})
+  console.log('Connecting mqtt client')
+  const client = mqtt.connect(host, options)
 
-client.on('connect', () => {
-  console.log('Client connected: ' + clientId)
-  // Subscribe
-  client.subscribe('/test/test_smart_bag_devices', { qos: 2 })
-  client.subscribe('/test', { qos: 2 })
-})
+  client.on('error', (err) => {
+    console.log('Connection error: ', err)
+    client.end()
+  })
 
-client.on('message',(topic, message) => {
-  if(topic=='/test/test_smart_bag_devices'){
-    if(message.toString() != "who_are_you"){
-      let temp = message.toString().split(' ')
-      let client_name = temp[0]
-      let client_value = temp[1]
-      
-      if(connected_devices.hasOwnProperty(client_name)){
-        connected_devices[client_name]["Control Value"] = client_value
-      }
-      else{
-        connected_devices[client_name] = {
-          role: null,
-          "Control Value": client_value,
-          "Connect Time": new Date().toLocaleString(),
-          "last_control_time": new Date().getTime()
+  client.on('reconnect', () => {
+    console.log('Reconnecting...')
+    status_text.textContent = "Reconnecting to wss://broker.emqx.io:8084/mqtt"
+  })
+
+  client.on('connect', () => {
+    console.log('Client connected: ' + clientId)
+    // Subscribe
+    client.subscribe('/test/test_smart_bag_devices', { qos: 2 })
+    client.subscribe('/test', { qos: 2 })
+    status_text.textContent = "Connected to wss://broker.emqx.io:8084/mqtt"
+  })
+
+  client.on('message', (topic, message) => {
+    if (topic == '/test/test_smart_bag_devices') {
+      if (message.toString() != "who_are_you") {
+        let temp = message.toString().split(' ')
+        let client_name = temp[0]
+        let client_value = temp[1]
+
+        if (connected_devices.hasOwnProperty(client_name)) {
+          connected_devices[client_name]["Control Value"] = client_value
+        }
+        else {
+          connected_devices[client_name] = {
+            role: null,
+            "Control Value": client_value,
+            "Connect Time": new Date().toLocaleString(),
+            "last_control_time": new Date().getTime()
+          }
         }
       }
     }
-  }
-})
+  })
+  return client
+}
 
+function modeCheckboxChanged(checkbox){
+  status_text = document.querySelector(".can-toggle__label-text")
+  if(checkbox.checked){
+    status_text.textContent = "Connecting to wss://broker.emqx.io:8084/mqtt"
+    client = establish_connection(status_text);
+    refresh_devices(clear=true);
+  }
+  else{
+    client.end();
+    client = null
+    status_text.textContent = "Using Simulated Fake Data"
+    refresh_devices(clear=true);
+  }
+}
 
 // Usage Examples: 
 
