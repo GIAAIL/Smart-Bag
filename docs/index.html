@@ -18,12 +18,14 @@
   <div class="nav-container">
     <nav id="navbar" class="navbar navbar-expand-lg navbar-darkxs ">
       <h1 class="navbar-brand">Smart Bag Controller</h1>
-      <button id=save-settings class="btn btn-secondary" >Save Settings</button>
-      <button id=load-settings class="btn btn-secondary" >Load settings</button>
+      <button id=save-settings class="btn btn-secondary" onClick="Save_Settings()">Save Settings</button>
+      <button id=load-settings class="btn btn-secondary" onClick="Load_Settings()">Load settings
+        <input type="file" id="upload_json" multiple size="50" onchange="Upload_File(this)">
+      </button>
       <div class="can-toggle">
-        <input id="a" type="checkbox">
+        <input id="a" type="checkbox" onchange="modeCheckboxChanged(this)">
         <label for="a">
-          <div class="can-toggle__switch" data-checked="Connect" data-unchecked="Demo"></div>
+          <div class="can-toggle__switch" data-checked="Real" data-unchecked="Demo"></div>
           <div class="can-toggle__label-text">Using Simulated Fake Data</div>
         </label>
       </div>
