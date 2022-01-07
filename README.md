@@ -1,7 +1,7 @@
 # Smart-Bag Project 
 This repo contains the code for Smart-Bag Project in NYCU
 
-Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/](https://nemo1999.github.io/Smart-Bag/)
+Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/)
 
 # Content Structure: 
 - [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
