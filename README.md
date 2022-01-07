@@ -3,6 +3,8 @@ This repo contains the code for Smart-Bag Project in NYCU
 
 Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/)
 
+Currently, Website, Python controlller, Wemo all connect to public free MQTT Broker at [emqx.com](https://www.emqx.com/en/mqtt/public-mqtt5-broker)
+
 # Content Structure: 
 - [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
 - [Controller Module](#Controller)  ( Python library for Controller )
