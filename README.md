@@ -1,7 +1,14 @@
 # Smart-Bag Project 
 This repo contains the code for Smart-Bag Project in NYCU
+
+Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/](https://nemo1999.github.io/Smart-Bag/)
+
 # Content Structure: 
-- ## [`Config Website`](https://github.com/Nemo1999/Smart-Bag/tree/master/Config_Website)  
+- [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
+- [Controller Module](#Controller)  ( Python library for Controller )
+- [Mosquitto MQTT Broker Script](#mosquitto)
+
+## [`Config Website`](https://github.com/Nemo1999/Smart-Bag/tree/master/Config_Website)  <a name="Config-Website"></a>
   contrains the source for a static website. The website use [MQTT.js](https://github.com/mqttjs/MQTT.js) 
   to assign the "role" ( position the air bag module on our vest ) of each WEMO module.  
   
@@ -9,7 +16,7 @@ This repo contains the code for Smart-Bag Project in NYCU
   GitPage will host the website at [https://nemo1999.github.io/Smart-Bag/](https://nemo1999.github.io/Smart-Bag/) 
   ![Website ScreenShot](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Config_Website.png)
   
-- ## [`Controller Module`](https://github.com/Nemo1999/Smart-Bag/tree/master/Controller_Package)
+## [`Controller Module`](https://github.com/Nemo1999/Smart-Bag/tree/master/Controller_Package)<a name="Controller"></a>
   contrains python module that implements the controller for the  WEMO modules, 
   the code use [paho.mqtt](https://github.com/eclipse/paho.mqtt.python) to communicate to `Config Website`, 
   and fetch the current role configuration (correspondence between __WEMO's MAC-address__ and __role__).
@@ -38,4 +45,10 @@ This repo contains the code for Smart-Bag Project in NYCU
     for r in controller.available_roles()
         controller.set_val(r, 100)
   ```
- 
+## [`Mosquitto MQTT Broker`](https://github.com/Nemo1999/Smart-Bag/tree/master/Mosquitto_MQTT_Broker)<a name="mosquitto"></a>
+  This contains minimal script and setting to setup [mosquitto](https://mosquitto.org/) broker.
+  
+  [`start_server.sh`](https://github.com/Nemo1999/Smart-Bag/blob/master/Mosquitto_MQTT_Broker/start_server.sh) print all the message and clients info in `stdout` for convinient debugging.
+  
+## [`Wemo_Mac_Identity`]()
+  
