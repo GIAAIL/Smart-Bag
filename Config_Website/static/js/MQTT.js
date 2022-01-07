@@ -65,7 +65,7 @@ function establish_connection(status_text) {
     }
     else if (topic == '/test/request_device_state'){
       if(message.toString() == "please send state at /test/send_device_state"){
-        client.publish('/test/send_device_state', JSON.stringify(connected_devices), { qos: 2 })
+        client.publish('/test/send_device_state', JSON.stringify(connected_devices), { qos: 1 })
       }
     } 
     else{
@@ -90,6 +90,11 @@ function modeCheckboxChanged(checkbox){
   }
 }
 
+function send_new_device_state(){
+  if(client != null){
+    client.publish('/test/send_device_state', JSON.stringify(connected_devices), { qos: 1 })
+  }
+}
 // Usage Examples: 
 
 
