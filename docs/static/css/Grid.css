@@ -23,7 +23,7 @@ body{
     height: 5rem;
     display: grid;
     justify-content: space-around;
-    grid-template-columns: 3fr 0.5fr 0.5fr 1fr;
+    grid-template-columns: 2fr 0.8fr 0.8fr 2fr;
     transform: translate(0,-100%);
     transition: transform 0.5s ease-in;
 }
@@ -33,8 +33,9 @@ body{
     transition: transform 0.5s ease-in-out;
 }
 
-#navbar .label{
-    width: 100%
+#navbar .navbar-brand{
+    padding-left: 3rem;
+    font-size: 2rem;
 }
 
 #navbar .can-toggle__label-text{
@@ -177,12 +178,7 @@ h2{
 h1{
     color: #E3C691;
 }
-/*
-.blocker{
-    opacity:0.9;
-    background-color: 3c4247;
-}
-*/
+
 
 #upload_json{
     display:none;

@@ -39,6 +39,7 @@ function establish_connection(status_text) {
     // Subscribe
     client.subscribe('/test/test_smart_bag_devices', { qos: 2 })
     client.subscribe('/test', { qos: 2 })
+    client.subscribe('/test/request_device_state', { qos: 2 })
     status_text.textContent = "Connected to wss://broker.emqx.io:8084/mqtt"
   })
 
@@ -62,6 +63,14 @@ function establish_connection(status_text) {
         }
       }
     }
+    else if (topic == '/test/request_device_state'){
+      if(message.toString() == "please send state at /test/send_device_state"){
+        client.publish('/test/send_device_state', JSON.stringify(connected_devices), { qos: 1 })
+      }
+    } 
+    else{
+
+    }
   })
   return client
 }
@@ -81,6 +90,11 @@ function modeCheckboxChanged(checkbox){
   }
 }
 
+function send_new_device_state(){
+  if(client != null){
+    client.publish('/test/send_device_state', JSON.stringify(connected_devices), { qos: 1 })
+  }
+}
 // Usage Examples: 
 
 

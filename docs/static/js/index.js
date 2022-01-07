@@ -9,12 +9,14 @@ var focus_state = {
 }
 
 
+
 async function assign_role(device_name, role_name) {
     if (connected_devices[device_name]["role"] != null) {
         remove_role(device_name, connected_devices[device_name]["role"])
     }
     Roles[role_name].current_device = device_name
     connected_devices[device_name]["role"] = role_name
+    send_new_device_state()
     return true
     // fetch devices information from server
     /*
@@ -50,6 +52,7 @@ async function remove_role(device_name, role_name) {
 
     Roles[role_name].current_device = null
     connected_devices[device_name]["role"] = null
+    send_new_device_state()
     return true;
 
     // fetch devices information from server
@@ -551,6 +554,7 @@ function refresh_devices(clear=false) {
                     Roles[device["role"]].current_device = key
                 }
             }
+            send_new_device_state()
             create_devices(connected_devices)
             update_roles(focus_state)
             update_devices(focus_state)
@@ -617,6 +621,7 @@ function refresh_devices(clear=false) {
         if(clear){
             connected_devices = {}
         }
+        
         setTimeout(() => {
             for (let role_name of Object.keys(Roles)) {
                 Roles[role_name].current_device = null
