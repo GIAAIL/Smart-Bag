@@ -4,18 +4,7 @@
 import paho.mqtt.client as mqtt
 from collections import defaultdict
 
-def connect_mqtt(client_id, broker, port):
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to MQTT Broker!")
-        else:
-            print("Failed to connect, return code %d\n", rc)
-    # Set Connecting Client ID
-    client = mqtt_client.Client(client_id)
-    # client.username_pw_set(username, password)
-    client.on_connect = on_connect
-    client.connect(broker, port)
-    return client
+
 
 # This mqtt client only cache most recent message
 class client:
@@ -97,4 +86,4 @@ class client_with_memory:
 
 
 # def on_message(client, userdata, msg):
-#print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+# print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
