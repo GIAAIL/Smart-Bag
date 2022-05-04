@@ -3,6 +3,8 @@
 ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Smart_Bag_Final_Demo.gif)
 
 - For the communication of all the components in this repo, see [this excalidraw diagram](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
+![](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/SmartBag_Communication.svg)
+
 - For debbuging the MQTT Message Mechanism, it is recommanded to use tools such as [MQTTBOX](https://chrome.google.com/webstore/detail/mqttbox/kaajoficamnjijhkeomgfljpicifbkaf/related)
 
 - This repo contains code for 
