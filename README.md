@@ -1,6 +1,10 @@
 # Smart-Bag Project 
 - This repo contains the code for Smart-Bag Project in NYCU
 ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Smart_Bag_Final_Demo.gif)
+
+- For the communication of all the components in this repo, see [this excalidraw diagram](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
+- For debbuging the MQTT Message Mechanism, it is recommanded to use tools such as [MQTTBOX](https://chrome.google.com/webstore/detail/mqttbox/kaajoficamnjijhkeomgfljpicifbkaf/related)
+
 - This repo contains code for 
   1. ([Wemo Client](#wemo-identity)) -- Arduino IDE code for connect WiFi / MQTT client / Controlling Motor and Air Vault
   2. ([Config Website](#Config-Website) ) -- Device-Role Assigning Website , which provides a GUI interface for assigning positions of air-bag modules.
@@ -9,7 +13,7 @@
   5. MQTT Control Logic ( seperated in all the modules, including controller / website / device )
   6. ([Mosquitto Feedback Controll](#Feedback)) -- An experimental side project that use PID controller to adjust the motor power with pressure feedback, see [This Youtube Video](https://www.youtube.com/watch?v=mnSC4qjzziw) for a quick demo.
 
-- For the communication of all the components in this repo, see [this excalidraw diagram](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
+
 
 - Configuration Website is hosted by GitPage, available [Here](https://nemo1999.github.io/Smart-Bag/Config_Website/index.html)
 
