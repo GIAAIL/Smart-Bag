@@ -2,10 +2,14 @@
 # created by Nemo on 2021/8/13 for drone project
 
 import time
+from time import sleep
 import math
 import random
 import mqtt
 import numpy as np
+import signal
+import sys
+
 
 # Initialize mqtt client ----------------------------------------------------------
 """
@@ -13,60 +17,72 @@ broker = '192.168.0.100'
 port = 8080
 
 """
-
 broker = '127.0.0.1'
 port = 9000
 
-#"""
-
-
-client_id = f'python-mqtt-{random.randint(0, 1000)}'
+client_id = f'Smart-Bags Controller *(python script)'
 # username = 'nemo'
 # password = 'public'
 
-cl = mqtt.client(broker, port, client_id)
+cl = mqtt.client_with_memory(broker, port, client_id)
+test_topic = '/test/ping'
+
 
 while(not cl.connected):
-    time.sleep(1)
+    sleep(1)
     print(f'connecting to mqtt broker at {broker}:{port}')
 
-cl.subscribe("/test/sensor/Time")
-cl.subscribe("/test/ping")
-# Read log files-----------------------------------------------------------------------------------
+cl.subscribe(test_topic)
+
+sleep(0.2)
+
+# ping current devices, adding them into `members` array
+cl[test_topic].clear()
+cl.publish(test_topic, "who_are_you")
+sleep(0.3)
+members = cl[test_topic].copy()
+
+# Register SigINT handler (turn off motors) ----------------------------------------------------
+def signal_handler(sig, frame):
+    print('\nYou pressed Ctrl+C!')
+    print("turning off all devices... ")
+    for m in members:
+        cl.publish(m, '1')
+    time.sleep(0.1)
+    print("Disconnecting MQTT... ")
+    cl.disconnect()
+    print("Closing Master...")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+#  REPL LOOP-----------------------------------------------------------------------------------
+
+
 
 while True:
     command = input()
     if command == 'end':
         break
     elif command == 'ping':
-        for i in range(5):
-            publish_nano = time.time_ns()
-            time_code = str(publish_nano)
-            cl.publish('/test/ping', time_code)
-            while True:
-                msg = cl['/test/ping']
-                #print(msg,time_code)
-                if msg is not None and  msg[0] == time_code + 'reply':
-                    receive_nano = time.time_ns()
-                    break
-            duration = receive_nano - publish_nano
-            duration = duration / (10 ** 6)
-            print(f'ping response time: {duration} ms')
-            time.sleep(0.5)
+        cl[test_topic].clear()
+        cl.publish(test_topic, "who_are_you")
+        sleep(0.3)
+        members = cl[test_topic].copy() #updating members array
+        members.remove("who_are_you")
+        print("subscribing devices: ")
+        for m in members:
+            cl.subscribe(m)
+            print(f'\t Device: {m}')
     elif command.isnumeric():
-
-        cl.publish("/test/command/Motor1", command)
-        cl.publish("/test/command/Motor2", command)
+        for m in members:
+            cl.publish(m, command)
     else:
         print('invalid command')
 
-print("turn off motor and LED")
-print("reset motors")
-
-cl.publish('/test/command/LED', "0")
-
-cl.publish("/test/command/Motor1", "0")
-
-cl.publish("/test/command/Motor2", "0")
-
+print("turning off all devices")
+for m in members:
+    cl.publish(m, '0')
+print("Disconnecting MQTT... ")
+cl.disconnect()
 time.sleep(0.1)
