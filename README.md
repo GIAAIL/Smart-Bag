@@ -64,4 +64,4 @@ This repo contains the code for Smart-Bag Project in NYCU
 - The result can be seen in the graph below, we can we that the gray curve (Sensed Pressure Value (in scaled resister voltage)), match the blue curve (targeted control value given from the interactive controller)
 - ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Wemo_FeedBack_Control/Screenshot%20from%202021-11-26%2018-08-06.png)
 - Note that the pink curve (motor power) is constantly adjusting itself to fit the gray curve to the blue curve.
-- See a more interactive demo in [this video](https://www.youtube.com/embed/mnSC4qjzziw), note that when I blocked the air hole on the airbag with my finger, the motor quickly power dropped, but the sensor pressure stay in a stable level!!
+- See a more interactive demo in [this video](https://www.youtube.com/watch?v=mnSC4qjzziw), note that when I blocked the air hole on the airbag with my finger, the motor quickly power dropped, but the sensor pressure stay in a stable level!!
