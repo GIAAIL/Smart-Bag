@@ -1,18 +1,20 @@
 # Smart-Bag Project 
-This repo contains the code for Smart-Bag Project in NYCU
+- This repo contains the code for Smart-Bag Project in NYCU
+![](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Smart_Bag_Final_Demo.gif)
+- This repo contains code for 
+  1. ([Wemo Client](#wemo-identity)) -- Arduino IDE code for connect WiFi / MQTT client / Controlling Motor and Air Vault
+  2. ([Config Website](#Config-Website) ) -- Device-Role Assigning Website , which provides a GUI interface for assigning positions of air-bag modules.
+  3. ([Controller Module](#Controller)) -- Controller Module that provide a python interface to directly assign power to each Vest Location (instead of device ID) 
+  4.  ( [Mosquitto MQTT Broker Script](#mosquitto)) -- Script to help you start a MQTT server Locally
+  5. MQTT Control Logic ( seperated in all the modules, including controller / website / device )
+  6. ([Mosquitto Feedback Controll](#Feedback)) -- An experimental side project that use PID controller to adjust the motor power with pressure feedback, see [This Youtube Video](https://www.youtube.com/watch?v=mnSC4qjzziw) for a quick demo.
 
-- Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/Config_Website/index.html)
+- For the communication of all the components in this repo, see [this excalidraw diagram](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
+
+- Configuration Website is hosted by GitPage, available [Here](https://nemo1999.github.io/Smart-Bag/Config_Website/index.html)
 
 - Currently all components use MQTT Broker at [emqx.com](https://www.emqx.com/en/mqtt/public-mqtt5-broker)
-
   - For more stable result, consider hosting a local broker (see [Mosquitto MQTT Broker Script](#mosquitto))
-
-- For the structure of all the components in the project, see [here](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
-
-# Content Structure: 
-- [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
-- [Controller Module](#Controller)  ( Python library for Controller )
-- [Mosquitto MQTT Broker Script](#mosquitto)
 
 ## [`Config Website`](https://github.com/Nemo1999/Smart-Bag/tree/master/Config_Website)  <a name="Config-Website"></a>
   contrains the source for a static website. The website use [MQTT.js](https://github.com/mqttjs/MQTT.js) 
@@ -55,12 +57,13 @@ This repo contains the code for Smart-Bag Project in NYCU
   
   [`start_server.sh`](https://github.com/Nemo1999/Smart-Bag/blob/master/Mosquitto_MQTT_Broker/start_server.sh) print all the message and clients info in `stdout` for convinient debugging.
   
-## [`Wemo_Mac_Identity`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_Macadress_Identity)
+## [`Wemo_Mac_Identity`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_Macadress_Identity)<a name="wemo-identity"></a>
   
 - You need to setup the Arduino IDE / Enter MQTT and WiFi-AP info to make Wemo Available
 - See the [README.md in the folder](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_Macadress_Identity) for more detail.
-## [`Wemo Feed Back Controll`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_FeedBack_Control)
+## [`Wemo Feed Back Controll`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_FeedBack_Control)<a name="Feedback"></a>
 - I implement a simple PID controller that use the feedback from pressure sensing resister to adjust the power of air pumping motor.
+- Pressure Sensor is here ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Wemo_FeedBack_Control/Pressure_Sensor.jpg)
 - The result can be seen in the graph below, we can we that the gray curve (Sensed Pressure Value (in scaled resister voltage)), match the blue curve (targeted control value given from the interactive controller)
 - ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Wemo_FeedBack_Control/Screenshot%20from%202021-11-26%2018-08-06.png)
 - Note that the pink curve (motor power) is constantly adjusting itself to fit the gray curve to the blue curve.
