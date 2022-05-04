@@ -1,9 +1,11 @@
 # Smart-Bag Project 
 This repo contains the code for Smart-Bag Project in NYCU
 
-Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/)
+- Web Configuration Demo available [here](https://nemo1999.github.io/Smart-Bag/Config_Website/index.html)
 
-Currently, Website, Python controlller, Wemo all connect to public free MQTT Broker at [emqx.com](https://www.emqx.com/en/mqtt/public-mqtt5-broker)
+- Currently all components use MQTT Broker at [emqx.com](https://www.emqx.com/en/mqtt/public-mqtt5-broker)
+
+- For more stable result, consider hosting a local broker (see [Mosquitto MQTT Broker Script](#mosquitto))
 
 # Content Structure: 
 - [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
@@ -12,10 +14,9 @@ Currently, Website, Python controlller, Wemo all connect to public free MQTT Bro
 
 ## [`Config Website`](https://github.com/Nemo1999/Smart-Bag/tree/master/Config_Website)  <a name="Config-Website"></a>
   contrains the source for a static website. The website use [MQTT.js](https://github.com/mqttjs/MQTT.js) 
-  to assign the "role" ( position the air bag module on our vest ) of each WEMO module.  
+  to communicate with each WEMO module.  
   
-  To deploy the website, copy all files into `doc` folder, (or run [`Deplay_to_GitPage.sh`](https://github.com/Nemo1999/Smart-Bag/blob/master/Deploy_to_GitPage.sh))
-  GitPage will host the website at [https://nemo1999.github.io/Smart-Bag/](https://nemo1999.github.io/Smart-Bag/) 
+  The website is hosted by GitPage and is available at [https://nemo1999.github.io/Smart-Bag/Config_Website/index.html](https://nemo1999.github.io/Smart-Bag/Config_Website/index.html)
   ![Website ScreenShot](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Config_Website.png)
   
 ## [`Controller Module`](https://github.com/Nemo1999/Smart-Bag/tree/master/Controller_Package)<a name="Controller"></a>
