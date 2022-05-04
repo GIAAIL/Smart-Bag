@@ -1,13 +1,12 @@
 /*
- Basic ESP8266 MQTT example
- This sketch demonstrates the capabilities of the pubsub library in combination
- with the ESP8266 board/library.
- It connects to an MQTT server then:
-  - publishes "hello world" to the topic "test/sensor" every 100 mili seconds
-  - subscribes to the topic "test/command", printing out any messages
-    it receives. NB - it assumes the received payloads are strings not binary
-  - If the first character of the topic "test/command" is an 1, switch ON the ESP Led,
-    else switch it off
+  The script use PID controller to control the air pumping motor power
+  with the feedback pressure sensor voltage from A0 pin.
+  
+  It shold be used with interactive_demo.py in `Simulated_Controller` folder
+  You also need to start a Mosquitto MQTT Broker(see `Mosquitto MQTT Broker` folder) locally for this script on wemo and the python controller to communicate with each other. 
+*/ 
+    
+/* 
  It will reconnect to the server if the connection is lost using a blocking
  reconnect function. See the 'mqtt_reconnect_nonblocking' example for how to
  achieve the same result without blocking the main loop.
