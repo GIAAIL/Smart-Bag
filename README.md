@@ -5,7 +5,9 @@ This repo contains the code for Smart-Bag Project in NYCU
 
 - Currently all components use MQTT Broker at [emqx.com](https://www.emqx.com/en/mqtt/public-mqtt5-broker)
 
-- For more stable result, consider hosting a local broker (see [Mosquitto MQTT Broker Script](#mosquitto))
+  - For more stable result, consider hosting a local broker (see [Mosquitto MQTT Broker Script](#mosquitto))
+
+- For the structure of all the components in the project, see [here](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
 
 # Content Structure: 
 - [Config Website](#Config-Website) ( Website to assign positions of air-bag modules )
@@ -53,5 +55,13 @@ This repo contains the code for Smart-Bag Project in NYCU
   
   [`start_server.sh`](https://github.com/Nemo1999/Smart-Bag/blob/master/Mosquitto_MQTT_Broker/start_server.sh) print all the message and clients info in `stdout` for convinient debugging.
   
-## [`Wemo_Mac_Identity`]()
+## [`Wemo_Mac_Identity`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_Macadress_Identity)
   
+- You need to setup the Arduino IDE / Enter MQTT and WiFi-AP info to make Wemo Available
+- See the [README.md in the folder](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_Macadress_Identity) for more detail.
+## [`Wemo Feed Back Controll`](https://github.com/Nemo1999/Smart-Bag/tree/master/Wemo_FeedBack_Control)
+- I implement a simple PID controller that use the feedback from pressure sensing resister to adjust the power of air pumping motor.
+- The result can be seen in the graph below, we can we that the gray curve (Sensed Pressure Value (in scaled resister voltage)), match the blue curve (targeted control value given from the interactive controller)
+- ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Wemo_FeedBack_Control/Screenshot%20from%202021-11-26%2018-08-06.png)
+- Note that the pink curve (motor power) is constantly adjusting itself to fit the gray curve to the blue curve.
+- See a more interactive demo in [this video](https://www.youtube.com/embed/mnSC4qjzziw), note that when I blocked the air hole on the airbag with my finger, the motor quickly power dropped, but the sensor pressure stay in a stable level!!
