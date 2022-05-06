@@ -1,5 +1,5 @@
 # Smart-Bag Project 
-- This repo contains the code for Smart-Bag Project in NYCU
+- This repo contains the code for Smart-Bag Project in NYCU part of [GIAAIL](https://github.com/GIAAIL)
 ![](https://github.com/Nemo1999/Smart-Bag/blob/master/Pictures/Smart_Bag_Final_Demo.gif)
 
 - For the communication of all the components in this repo, see [this excalidraw diagram](https://excalidraw.com/#room=55850e406bf89b3ca01c,bQ7NPqvCC9gKfAy7OdJU-A)
