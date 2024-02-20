@@ -1,6 +1,6 @@
 # Smart-Bag Project 
-- [`Smart-Drone 互動背心歷次內部進度簡報雲端`](https://drive.google.com/drive/folders/1LEWZry6bycZ7TaybFI20kMYI6mVRchEk)
-- [`Smart-Drone 互動背心2021進度簡報(完整版)`](https://docs.google.com/presentation/d/1ZCTOPuW_s0rJX_CZm6mk6qxOlgYo2cCyvmA8xa95j_8/edit?fbclid=IwAR2kq7McvLPW6AKOmOBny9icxAeSm9UqLmHG1J4eLodyZSzJK92U5JBU9bA#slide=id.gf93d96cec5_0_11)
+- [Smart-Drone 互動背心歷次內部進度簡報雲端](https://drive.google.com/drive/folders/1LEWZry6bycZ7TaybFI20kMYI6mVRchEk)
+- [Smart-Drone 互動背心2021進度簡報(完整版)](https://docs.google.com/presentation/d/1ZCTOPuW_s0rJX_CZm6mk6qxOlgYo2cCyvmA8xa95j_8/edit?fbclid=IwAR2kq7McvLPW6AKOmOBny9icxAeSm9UqLmHG1J4eLodyZSzJK92U5JBU9bA#slide=id.gf93d96cec5_0_11)
 
 ---
 - This repo contains the code for Smart-Bag Project in NYCU part of [GIAAIL](https://github.com/GIAAIL)
